@@ -18,6 +18,8 @@
 
   <!-- Chart.js CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+  <!-- SweetAlert2: popup / loader -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.14.5/sweetalert2.all.min.js"></script>
 
   <script>
     tailwind.config = {
@@ -77,6 +79,9 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #E5A93C;
     }
+
+    .swal2-popup { font-family: 'Sarabun', sans-serif; }
+    .swal2-title { font-family: 'Prompt', sans-serif; }
 
     /* Modal Animation */
     .modal-backdrop {
@@ -1120,7 +1125,15 @@
     const esc = t => String(t ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
     // เรียก Apps Script: 'public' ใช้ GET, ที่เหลือใช้ POST (text/plain เพื่อเลี่ยง CORS preflight)
-    async function api(action, payload = {}) {
+    async function api(action, payload) {
+      try { return await _apiRaw(action, payload); }
+      catch (e) {
+        if (e instanceof TypeError || e instanceof SyntaxError)
+          throw new Error('เชื่อมต่อ Google Sheet ไม่ได้ กรุณาตรวจสอบอินเทอร์เน็ต หรือ API_URL / การ Deploy');
+        throw e;
+      }
+    }
+    async function _apiRaw(action, payload = {}) {
       if (!API_URL) throw new Error('ยังไม่ได้ตั้งค่า API_URL ในไฟล์ (ดู README)');
       const res = action === 'public'
         ? await fetch(API_URL)
@@ -1144,14 +1157,33 @@
 
     // บันทึก/ลบข้อมูลหลังบ้าน แล้วโหลดข้อมูลล่าสุดจาก Sheet กลับมาแสดง
     async function adminCall(action, payload, afterFn) {
+      loading(action === 'delete' ? 'กำลังลบข้อมูล...' : 'กำลังบันทึกข้อมูลลง Google Sheet...', 'กรุณารอสักครู่');
       try {
         await api(action, payload);
         applyData(await api('adminList'));
         if (afterFn) afterFn();
+        notify('success', action === 'delete' || action === 'deleteCategory' ? 'ลบข้อมูลเรียบร้อย' : 'บันทึกข้อมูลเรียบร้อย');
       } catch (err) {
-        alert(err.message);
+        await fail(err.message);
         if (!adminToken) { closeAdminPanel(); openLoginModal(); }
       }
+    }
+
+    // ===== ตัวช่วย SweetAlert2 =====
+    function loading(title, text = '') {            // หน้าต่างหมุน ๆ ระหว่างรอ (ผู้ใช้กดปิดเองไม่ได้)
+      Swal.fire({ title, text, allowOutsideClick: false, allowEscapeKey: false, showConfirmButton: false,
+                  didOpen: () => Swal.showLoading() });
+    }
+    function notify(icon, title) {                  // ข้อความเล็กมุมขวาบน หายเองใน 2 วินาที
+      Swal.fire({ toast: true, position: 'top-end', icon, title, showConfirmButton: false, timer: 2200, timerProgressBar: true });
+    }
+    function fail(text) {                           // แจ้งข้อผิดพลาด
+      return Swal.fire({ icon: 'error', title: 'เกิดข้อผิดพลาด', text, confirmButtonText: 'ตกลง', confirmButtonColor: '#11223F' });
+    }
+    async function ask(title) {                     // ถามยืนยัน (แทน confirm เดิม) คืนค่า true/false
+      const r = await Swal.fire({ icon: 'warning', title, showCancelButton: true, confirmButtonText: 'ยืนยัน',
+                                  cancelButtonText: 'ยกเลิก', confirmButtonColor: '#9B1B30' });
+      return r.isConfirmed;
     }
 
     function showDemoBanner(msg) {
@@ -1347,13 +1379,19 @@
     // Initialization
     window.onload = loadDatabase;
 
+    let appLoaded = false;
     async function loadDatabase() {
+      const showLoader = API_URL && !appLoaded;      // แสดง loader เฉพาะตอนเปิดเว็บครั้งแรก
+      if (showLoader) loading('กำลังโหลดข้อมูล...', 'เชื่อมต่อ Google Sheet (ครั้งแรกอาจใช้เวลา 3-5 วินาที)');
       try {
         applyData(await api(adminToken ? 'adminList' : 'public'));
       } catch (err) {
         if (adminToken) { adminToken = ''; sessionStorage.removeItem(TOKEN_KEY); return loadDatabase(); }
         showDemoBanner(err.message);
         applyData(JSON.parse(JSON.stringify(initialDb)));
+      } finally {
+        appLoaded = true;
+        if (showLoader) Swal.close();
       }
     }
 
@@ -1613,14 +1651,16 @@
       const card = document.getElementById('pa-result-card');
 
       if (!posId) {
-        alert('กรุณากรอกเลขประจำตำแหน่ง');
+        fail('กรุณากรอกเลขประจำตำแหน่ง');
         return;
       }
 
       let p = null;
+      loading('กำลังตรวจสอบข้อมูล ว.PA...');
       try {
         p = await api('pa', { posId, dob: paRequireDob ? val('pa-dob-input') : '' });
-      } catch (err) { alert(err.message); return; }
+        Swal.close();
+      } catch (err) { fail(err.message); return; }
 
       if (!p) {
         card.classList.remove('hidden');
@@ -1683,15 +1723,15 @@
     // Public Contact Form Submission
     async function submitContactForm(e) {
       e.preventDefault();
-      const form = e.target, btn = form.querySelector('button[type=submit]');
-      btn.disabled = true;
+      const form = e.target;
+      loading('กำลังส่งข้อความ...');
       try {
         await api('contact', { name: val('contact-name'), role: val('contact-role'),
                                subject: val('contact-subject'), message: val('contact-message') });
-        alert('ส่งข้อความเรียบร้อยแล้ว เจ้าหน้าที่กลุ่มบริหารงานบุคคลจะติดต่อกลับโดยเร็วที่สุด');
         form.reset();
-      } catch (err) { alert(err.message); }
-      btn.disabled = false;
+        Swal.fire({ icon: 'success', title: 'ส่งข้อความเรียบร้อยแล้ว',
+                    text: 'เจ้าหน้าที่กลุ่มบริหารงานบุคคลจะติดต่อกลับโดยเร็วที่สุด', confirmButtonText: 'ตกลง', confirmButtonColor: '#11223F' });
+      } catch (err) { fail(err.message); }
     }
 
     // Charts Initialization
@@ -1756,6 +1796,7 @@
     async function handleLogin(e) {
       e.preventDefault();
       const err = document.getElementById('login-error');
+      loading('กำลังตรวจสอบรหัสผ่าน...');
       try {
         const r = await api('login', { user: val('login-user'), pass: val('login-pass') });
         adminToken = r.token;
@@ -1763,9 +1804,13 @@
         document.getElementById('login-pass').value = '';
         err.classList.add('hidden');
         closeLoginModal();
+        loading('กำลังโหลดข้อมูลหลังบ้าน...');
         applyData(await api('adminList'));
+        Swal.close();
         openAdminPanel();
+        notify('success', 'เข้าสู่ระบบสำเร็จ');
       } catch (ex) {
+        Swal.close();
         err.textContent = ex.message;
         err.classList.remove('hidden');
       }
@@ -1967,7 +2012,7 @@
     }
 
     async function deletePersonnel(id) {
-      if (confirm('ยืนยันการลบข้อมูลบุคลากรนี้?')) await adminCall('delete', { entity: 'personnel', id });
+      if (await ask('ยืนยันการลบข้อมูลบุคลากรนี้?')) await adminCall('delete', { entity: 'personnel', id });
     }
 
     // CMS NEWS CRUD
@@ -2006,7 +2051,7 @@
     }
 
     async function deleteNews(id) {
-      if (confirm('ยืนยันการลบข่าวสารนี้?')) await adminCall('delete', { entity: 'news', id });
+      if (await ask('ยืนยันการลบข่าวสารนี้?')) await adminCall('delete', { entity: 'news', id });
     }
 
     // CMS FORMS CRUD
@@ -2041,7 +2086,7 @@
     }
 
     async function deleteFormItem(id) {
-      if (confirm('ยืนยันการลบแบบฟอร์มนี้?')) await adminCall('delete', { entity: 'forms', id });
+      if (await ask('ยืนยันการลบแบบฟอร์มนี้?')) await adminCall('delete', { entity: 'forms', id });
     }
 
     // CMS CATEGORIES CRUD
@@ -2050,7 +2095,7 @@
       if (name) await adminCall('saveCategory', { type: 'subject', name }, () => { el.value = ''; });
     }
     async function deleteSubjectCategory(idx) {
-      if (confirm('ยืนยันการลบหมวดหมู่นี้?')) await adminCall('deleteCategory', { type: 'subject', name: db.subjectGroups[idx] });
+      if (await ask('ยืนยันการลบหมวดหมู่นี้?')) await adminCall('deleteCategory', { type: 'subject', name: db.subjectGroups[idx] });
     }
 
     async function addAdminDivCategory() {
@@ -2058,11 +2103,11 @@
       if (name) await adminCall('saveCategory', { type: 'division', name }, () => { el.value = ''; });
     }
     async function deleteAdminDivCategory(idx) {
-      if (confirm('ยืนยันการลบฝ่ายงานนี้?')) await adminCall('deleteCategory', { type: 'division', name: db.adminDivisions[idx] });
+      if (await ask('ยืนยันการลบฝ่ายงานนี้?')) await adminCall('deleteCategory', { type: 'division', name: db.adminDivisions[idx] });
     }
 
     async function deleteInboxMessage(id) {
-      if (confirm('ยืนยันการลบข้อความนี้?')) await adminCall('delete', { entity: 'inbox', id });
+      if (await ask('ยืนยันการลบข้อความนี้?')) await adminCall('delete', { entity: 'inbox', id });
     }
 
     // ===== e-Services: ของเดิมมีปุ่มเพิ่ม/ลบแต่ไม่มีฟังก์ชันรองรับ (กดแล้วเกิด error) =====
@@ -2095,7 +2140,7 @@
       await adminCall('save', { entity: 'services', item }, closeServiceModal);
     }
     async function deleteService(id) {
-      if (confirm('ยืนยันการลบบริการนี้?')) await adminCall('delete', { entity: 'services', id });
+      if (await ask('ยืนยันการลบบริการนี้?')) await adminCall('delete', { entity: 'services', id });
     }
 
     // เปิดแท็บกล่องข้อความ = ถือว่าอ่านแล้ว (ของเดิมตัวเลขแจ้งเตือนไม่เคยหาย)
