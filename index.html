@@ -1,0 +1,2111 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>กลุ่มบริหารงานบุคคล โรงเรียนวังม่วงวิทยาคม สพม.สระบุรี</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Prompt & Sarabun -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome 6.4 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              900: '#0B1528',
+              800: '#11223F',
+              700: '#1B365D',
+              600: '#254B82',
+              500: '#3262A8',
+            },
+            gold: {
+              400: '#F5C860',
+              500: '#E5A93C',
+              600: '#D4AF37',
+              700: '#B89228',
+            },
+            crimson: {
+              600: '#9B1B30',
+              700: '#800020',
+              800: '#630018',
+            }
+          },
+          fontFamily: {
+            prompt: ['Prompt', 'sans-serif'],
+            sarabun: ['Sarabun', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background-color: #F8FAFC;
+      color: #1E293B;
+    }
+    h1, h2, h3, h4, h5, h6, .font-prompt {
+      font-family: 'Prompt', sans-serif;
+    }
+    
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0B1528;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D4AF37;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #E5A93C;
+    }
+
+    /* Modal Animation */
+    .modal-backdrop {
+      background-color: rgba(11, 21, 40, 0.75);
+      backdrop-filter: blur(4px);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-gold-500 selection:text-slate-900">
+
+  <!-- ================= TOP BAR (EXACT MATCHING DESIGN) ================= -->
+  <div class="bg-[#0B1528] text-slate-300 text-xs sm:text-sm py-2 px-4 border-b border-navy-700">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
+      <!-- Left Info -->
+      <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 text-slate-300">
+        <span class="flex items-center gap-1.5"><i class="fa-solid fa-school text-gold-400"></i> โรงเรียนวังม่วงวิทยาคม สพม.สระบุรี</span>
+        <span class="flex items-center gap-1.5"><i class="fa-solid fa-phone text-gold-400"></i> 036-362-123</span>
+        <span class="flex items-center gap-1.5"><i class="fa-solid fa-envelope text-gold-400"></i> personnel@wmw.ac.th</span>
+      </div>
+      <!-- Right Quick Actions -->
+      <div class="flex items-center gap-3">
+        <button onclick="scrollToPA()" class="flex items-center gap-1.5 text-xs text-slate-300 hover:text-white transition">
+          <i class="fa-solid fa-address-card text-gold-400"></i> ตรวจสอบ ว.PA
+        </button>
+        <button onclick="openLoginModal()" class="flex items-center gap-1.5 text-xs font-semibold px-3 py-1 bg-gold-500 hover:bg-gold-400 text-slate-950 rounded-md transition shadow-sm">
+          <i class="fa-solid fa-lock"></i> เข้าสู่ระบบหลังบ้าน
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN NAVIGATION BAR ================= -->
+  <header class="sticky top-0 z-40 bg-[#11223F] border-b-2 border-gold-500 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
+      
+      <!-- Brand / Logo -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-gold-600 to-gold-400 flex items-center justify-center text-navy-900 shadow-md transform group-hover:scale-105 transition">
+          <i class="fa-solid fa-user-shield text-2xl"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-prompt text-lg font-bold tracking-tight text-white leading-tight">กลุ่มบริหารงานบุคคล</span>
+          <span class="text-xs text-gold-400 font-light">โรงเรียนวังม่วงวิทยาคม สพม.สระบุรี</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden lg:flex items-center space-x-1 text-sm font-medium">
+        <a href="#hero" class="px-3 py-2 text-slate-200 hover:text-gold-400 transition hover:bg-navy-700/50 rounded-lg">หน้าหลัก</a>
+        <a href="#eservices" class="px-3 py-2 text-slate-200 hover:text-gold-400 transition hover:bg-navy-700/50 rounded-lg">e-Services</a>
+        <a href="#leave-rules" class="px-3 py-2 text-slate-200 hover:text-gold-400 transition hover:bg-navy-700/50 rounded-lg">สิทธิการลา</a>
+        <a href="#news" class="px-3 py-2 text-slate-200 hover:text-gold-400 transition hover:bg-navy-700/50 rounded-lg">ข่าวสาร</a>
+        <a href="#downloads" class="px-3 py-2 text-slate-200 hover:text-gold-400 transition hover:bg-navy-700/50 rounded-lg">ดาวน์โหลด</a>
+        <a href="#pa-check" class="px-3 py-2 text-slate-200 hover:text-gold-400 transition hover:bg-navy-700/50 rounded-lg">ตรวจสอบ ว.PA</a>
+        <a href="#personnel" class="px-3 py-2 text-slate-200 hover:text-gold-400 transition hover:bg-navy-700/50 rounded-lg">ทำเนียบบุคลากร</a>
+        <a href="#contact" class="px-3 py-2 text-slate-200 hover:text-gold-400 transition hover:bg-navy-700/50 rounded-lg">ติดต่อเรา</a>
+      </nav>
+
+      <!-- Mobile Hamburger Button -->
+      <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-slate-200 hover:text-gold-400 focus:outline-none">
+        <i class="fa-solid fa-bars text-2xl"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-navy-800 border-b border-navy-700 px-4 pt-2 pb-4 space-y-1">
+      <a href="#hero" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-slate-200 hover:bg-navy-700 hover:text-gold-400">หน้าหลัก</a>
+      <a href="#eservices" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-slate-200 hover:bg-navy-700 hover:text-gold-400">e-Services</a>
+      <a href="#leave-rules" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-slate-200 hover:bg-navy-700 hover:text-gold-400">สิทธิการลา</a>
+      <a href="#news" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-slate-200 hover:bg-navy-700 hover:text-gold-400">ข่าวสาร</a>
+      <a href="#downloads" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-slate-200 hover:bg-navy-700 hover:text-gold-400">ดาวน์โหลด</a>
+      <a href="#pa-check" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-slate-200 hover:bg-navy-700 hover:text-gold-400">ตรวจสอบ ว.PA</a>
+      <a href="#personnel" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-slate-200 hover:bg-navy-700 hover:text-gold-400">ทำเนียบบุคลากร</a>
+      <a href="#contact" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-slate-200 hover:bg-navy-700 hover:text-gold-400">ติดต่อเรา</a>
+    </div>
+  </header>
+
+  <!-- ================= HERO BANNER ================= -->
+  <section id="hero" class="relative bg-gradient-to-br from-[#0B1528] via-[#11223F] to-[#1B365D] text-white py-20 px-4 overflow-hidden border-b border-navy-700">
+    <!-- Decorative background elements -->
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#E5A93C_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-gold-500/10 blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto text-left relative z-10">
+      <!-- Yellow Badge -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs sm:text-sm font-medium mb-6">
+        <i class="fa-solid fa-star text-gold-400"></i> พัฒนาครู สมรรถนะผู้เรียน สู่ความเป็นเลิศอย่างยั่งยืน
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold font-prompt tracking-tight text-white mb-4 leading-tight">
+        ระบบบริหารงานบุคคลดิจิทัล<br class="hidden sm:inline">
+        <span class="text-gold-400">โรงเรียนวังม่วงวิทยาคม</span>
+      </h1>
+
+      <!-- Description -->
+      <p class="text-slate-300 text-sm sm:text-base md:text-lg font-light max-w-3xl mb-8 leading-relaxed">
+        มุ่งเน้นการให้บริการข้าราชการครูและบุคลากรทางการศึกษาด้วยความถูกต้อง รวดเร็ว โปร่งใส พร้อมระบบประเมินวิทยฐานะตามหลักเกณฑ์ ว.PA และระบบสารสนเทศออนไลน์ครบวงจร
+      </p>
+
+      <!-- 3 Hero CTA Buttons -->
+      <div class="flex flex-wrap items-center gap-4">
+        <a href="#eservices" class="px-6 py-3.5 bg-gold-500 hover:bg-gold-400 text-slate-950 font-prompt font-semibold rounded-lg shadow-lg hover:shadow-gold-500/20 transition flex items-center gap-2">
+          <i class="fa-solid fa-id-card"></i> ระบบ e-Services
+        </a>
+        <a href="#pa-check" class="px-6 py-3.5 bg-navy-700/80 hover:bg-navy-600 text-white font-prompt font-semibold rounded-lg border border-slate-600 hover:border-gold-400 transition flex items-center gap-2">
+          <i class="fa-solid fa-[#fa-magnifying-glass] fa-magnifying-glass"></i> ตรวจสอบสิทธิ์ ว.PA
+        </a>
+        <a href="#downloads" class="px-6 py-3.5 bg-crimson-700 hover:bg-crimson-600 text-white font-prompt font-semibold rounded-lg shadow-md transition flex items-center gap-2">
+          <i class="fa-solid fa-file-arrow-down"></i> ดาวน์โหลดแบบฟอร์ม
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECTION 1: E-SERVICES HUB ================= -->
+  <section id="eservices" class="py-16 px-4 bg-slate-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
+        <div>
+          <span class="text-xs font-semibold tracking-wider text-gold-600 uppercase font-prompt">DIGITAL SERVICES</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-navy-800 font-prompt mt-1">ระบบบริการออนไลน์ (e-Services)</h2>
+          <p class="text-slate-500 text-sm mt-1">การให้บริการด้านบุคลากรผ่านระบบออนไลน์ สะดวก รวดเร็ว เข้าถึงได้ 24 ชั่วโมง</p>
+        </div>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div id="eservice-tabs" class="flex flex-wrap gap-2 mb-8 border-b border-slate-200 pb-4">
+        <!-- Injected via JS -->
+      </div>
+
+      <!-- Services Grid -->
+      <div id="eservice-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECTION 2: LEAVE REGULATIONS ================= -->
+  <section id="leave-rules" class="py-16 px-4 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-semibold tracking-wider text-gold-600 uppercase font-prompt">RULES & REGULATIONS</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-navy-800 font-prompt mt-1">สิทธิการลา & หลักเกณฑ์การปฏิบัติ</h2>
+        <p class="text-slate-500 text-sm mt-1">สรุปจำนวนวันลาตามระเบียบสำนักนายกรัฐมนตรีว่าด้วยการลาของข้าราชการ พ.ศ. 2555</p>
+      </div>
+
+      <!-- Summary Stat Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-12">
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-center hover:border-gold-500 transition shadow-sm">
+          <div class="w-10 h-10 mx-auto rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mb-2">
+            <i class="fa-solid fa-bed"></i>
+          </div>
+          <div class="text-2xl font-bold text-navy-800 font-prompt">60 <span class="text-xs font-normal text-slate-500">วัน/ปี</span></div>
+          <div class="text-xs font-medium text-slate-600 mt-1">ลาป่วย (ยื่นใบแพทย์ &gt;3 วัน)</div>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-center hover:border-gold-500 transition shadow-sm">
+          <div class="w-10 h-10 mx-auto rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mb-2">
+            <i class="fa-solid fa-clipboard-user"></i>
+          </div>
+          <div class="text-2xl font-bold text-navy-800 font-prompt">45 <span class="text-xs font-normal text-slate-500">วัน/ปี</span></div>
+          <div class="text-xs font-medium text-slate-600 mt-1">ลากิจส่วนตัว</div>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-center hover:border-gold-500 transition shadow-sm">
+          <div class="w-10 h-10 mx-auto rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mb-2">
+            <i class="fa-solid fa-umbrella-beach"></i>
+          </div>
+          <div class="text-2xl font-bold text-navy-800 font-prompt">10 <span class="text-xs font-normal text-slate-500">วัน/ปี</span></div>
+          <div class="text-xs font-medium text-slate-600 mt-1">ลาพักผ่อนประจำปี</div>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-center hover:border-gold-500 transition shadow-sm">
+          <div class="w-10 h-10 mx-auto rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mb-2">
+            <i class="fa-solid fa-baby"></i>
+          </div>
+          <div class="text-2xl font-bold text-navy-800 font-prompt">98 <span class="text-xs font-normal text-slate-500">วัน</span></div>
+          <div class="text-xs font-medium text-slate-600 mt-1">ลาคลอดบุตร / เลี้ยงดู</div>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-center hover:border-gold-500 transition shadow-sm col-span-2 md:col-span-1">
+          <div class="w-10 h-10 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mb-2">
+            <i class="fa-solid fa-hands-praying"></i>
+          </div>
+          <div class="text-2xl font-bold text-navy-800 font-prompt">120 <span class="text-xs font-normal text-slate-500">วัน</span></div>
+          <div class="text-xs font-medium text-slate-600 mt-1">ลาอุปสมบท / ฮัจญ์</div>
+        </div>
+      </div>
+
+      <!-- Guidelines Accordion -->
+      <div class="max-w-4xl mx-auto space-y-3" id="leave-accordion">
+        <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm bg-slate-50">
+          <button onclick="toggleAccordion('acc-1')" class="w-full text-left px-5 py-4 font-prompt font-semibold text-navy-800 flex justify-between items-center bg-slate-100/70 hover:bg-slate-100">
+            <span><i class="fa-solid fa-circle-question text-gold-600 mr-2"></i> ขั้นตอนการยื่นใบลาป่วย และการแนบใบรับรองแพทย์</span>
+            <i id="acc-1-icon" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+          </button>
+          <div id="acc-1" class="hidden px-5 py-4 text-sm text-slate-600 space-y-2 border-t border-slate-200 bg-white">
+            <p>1. กรณีป่วยกะทันหัน ให้แจ้งผู้บังคับบัญชาทราบทางโทรศัพท์หรือไลน์ก่อนเวลา 08.15 น.</p>
+            <p>2. ส่งใบลาป่วยในระบบ e-Services หรือเสนอตามสายงานทันทีที่กลับมาปฏิบัติงาน</p>
+            <p>3. กรณีป่วยติดต่อกันตั้งแต่ 3 วันทำการขึ้นไป <strong>ต้องแนบใบรับรองแพทย์แผนปัจจุบันชั้น 1</strong></p>
+          </div>
+        </div>
+
+        <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm bg-slate-50">
+          <button onclick="toggleAccordion('acc-2')" class="w-full text-left px-5 py-4 font-prompt font-semibold text-navy-800 flex justify-between items-center bg-slate-100/70 hover:bg-slate-100">
+            <span><i class="fa-solid fa-circle-question text-gold-600 mr-2"></i> แนวทางการลากิจส่วนตัวและการขออนุมัติล่วงหน้า</span>
+            <i id="acc-2-icon" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+          </button>
+          <div id="acc-2" class="hidden px-5 py-4 text-sm text-slate-600 space-y-2 border-t border-slate-200 bg-white">
+            <p>1. ลากิจส่วนตัวต้องเสนอใบลาและได้รับอนุมัติจากผู้อำนวยการโรงเรียน<strong>ก่อนวันลาอย่างน้อย 1-3 วัน</strong></p>
+            <p>2. จัดทำแผนการสอนชดเชยหรือมอบหมายครูปฏิบัติหน้าที่สอนแทนให้เรียบร้อย</p>
+          </div>
+        </div>
+
+        <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm bg-slate-50">
+          <button onclick="toggleAccordion('acc-3')" class="w-full text-left px-5 py-4 font-prompt font-semibold text-navy-800 flex justify-between items-center bg-slate-100/70 hover:bg-slate-100">
+            <span><i class="fa-solid fa-circle-question text-gold-600 mr-2"></i> การไปราชการและการจัดสอนแทน</span>
+            <i id="acc-3-icon" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+          </button>
+          <div id="acc-3" class="hidden px-5 py-4 text-sm text-slate-600 space-y-2 border-t border-slate-200 bg-white">
+            <p>1. แนบคำสั่งหรือหนังสือเชิญเข้าร่วมประชุม/อบรม เสนอต่อฝ่ายบริหารงานบุคคล</p>
+            <p>2. บันทึกคำขอไปราชการผ่านระบบ e-Services ก่อนวันเดินทางอย่างน้อย 3 วัน</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECTION 3: PERSONNEL ANALYTICS ================= -->
+  <section class="py-16 px-4 bg-slate-100/70 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-xs font-semibold tracking-wider text-gold-600 uppercase font-prompt">STATISTICS & ANALYTICS</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-navy-800 font-prompt mt-1">สรุปสถิติจำนวนครูและบุคลากร</h2>
+        <p class="text-slate-500 text-sm mt-1">ข้อมูลบุคลากรจำแนกตามตำแหน่ง วิทยฐานะ และกลุ่มสาระการเรียนรู้</p>
+      </div>
+
+      <!-- Overview Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <div class="text-xs font-medium text-slate-500">บุคลากรทั้งหมด</div>
+            <div id="stat-total-staff" class="text-2xl font-bold text-navy-800 font-prompt mt-1">0</div>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-navy-50 text-navy-700 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-users"></i>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <div class="text-xs font-medium text-slate-500">ข้าราชการครู</div>
+            <div id="stat-teacher-count" class="text-2xl font-bold text-gold-600 font-prompt mt-1">0</div>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-gold-50 text-gold-600 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-user-graduate"></i>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <div class="text-xs font-medium text-slate-500">มีวิทยฐานะ (ชำนาญการขึ้นไป)</div>
+            <div id="stat-ranked-count" class="text-2xl font-bold text-emerald-600 font-prompt mt-1">0</div>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-award"></i>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <div class="text-xs font-medium text-slate-500">พนักงานราชการ/อัตราจ้าง</div>
+            <div id="stat-temp-count" class="text-2xl font-bold text-sky-600 font-prompt mt-1">0</div>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-id-badge"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Bar Chart: Ranks -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <h3 class="text-base font-bold text-navy-800 font-prompt mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-chart-column text-gold-600"></i> จำนวนบุคลากรแยกตามวิทยฐานะ
+          </h3>
+          <div class="h-64">
+            <canvas id="rankChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Doughnut Chart: Subject Groups -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <h3 class="text-base font-bold text-navy-800 font-prompt mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-chart-pie text-gold-600"></i> สัดส่วนบุคลากรตามกลุ่มสาระการเรียนรู้
+          </h3>
+          <div class="h-64 flex items-center justify-center">
+            <canvas id="subjectChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECTION 4: PA VERIFICATION SYSTEM ================= -->
+  <section id="pa-check" class="py-16 px-4 bg-gradient-to-br from-navy-900 to-navy-800 text-white border-b border-navy-700">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-xs font-semibold tracking-wider text-gold-400 uppercase font-prompt">PA SYSTEM</span>
+        <h2 class="text-2xl sm:text-3xl font-bold font-prompt text-white mt-1">ระบบตรวจสอบการประเมินวิทยฐานะ (ว.PA)</h2>
+        <p class="text-slate-300 text-sm mt-1">ตรวจสอบคุณสมบัติ สถานะการยื่นขอประเมิน และรอบการสะสมผลงานรายบุคคล</p>
+      </div>
+
+      <!-- PA Search Box -->
+      <div class="bg-navy-700/60 p-6 sm:p-8 rounded-2xl border border-navy-600 backdrop-blur-md shadow-xl mb-10">
+        <label class="block text-sm font-medium text-slate-200 mb-2">ค้นหาข้อมูล ว.PA ด้วย "เลขประจำตำแหน่ง"</label>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <div class="relative flex-grow">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <i class="fa-solid fa-id-card"></i>
+            </span>
+            <input type="text" id="pa-search-input" placeholder="กรอกเลขประจำตำแหน่ง เช่น WMW-T001, WMW-T002..." class="w-full pl-10 pr-4 py-3 bg-navy-900/90 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-gold-400 text-sm font-mono">
+          </div>
+          <div id="pa-dob-wrap" class="sm:w-56"><input type="date" id="pa-dob-input" title="วันเกิด (ใช้ยืนยันตัวตน)" class="w-full px-4 py-3 bg-navy-900/90 border border-slate-600 rounded-xl text-white focus:outline-none focus:border-gold-400 text-sm"></div>
+          <button onclick="searchPA()" class="px-8 py-3 bg-gold-500 hover:bg-gold-400 text-navy-950 font-prompt font-semibold rounded-xl shadow-md transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-magnifying-glass"></i> ค้นหาข้อมูล
+          </button>
+        </div>
+        <p class="text-xs text-slate-400 mt-2"><i class="fa-solid fa-circle-info text-gold-400"></i> กรอกเลขประจำตำแหน่งและวันเกิด (ค.ศ.) เพื่อยืนยันตัวตนก่อนดูข้อมูล</p>
+      </div>
+
+      <!-- PA Result Display Container -->
+      <div id="pa-result-card" class="hidden bg-white text-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl border border-gold-500/30">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECTION 5: NEWS & ANNOUNCEMENTS ================= -->
+  <section id="news" class="py-16 px-4 bg-slate-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
+        <div>
+          <span class="text-xs font-semibold tracking-wider text-gold-600 uppercase font-prompt">ANNOUNCEMENTS</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-navy-800 font-prompt mt-1">ข่าวประชาสัมพันธ์ & คำสั่ง</h2>
+          <p class="text-slate-500 text-sm mt-1">ติดตามประกาศ คำสั่งการปฏิบัติราชการ ข่าวอบรมพัฒนา และแจ้งเตือนสำคัญ</p>
+        </div>
+        
+        <!-- Search & Filter Bar -->
+        <div class="mt-4 md:mt-0 flex gap-2">
+          <input type="text" id="news-search" onkeyup="filterNews()" placeholder="ค้นหาข่าว..." class="px-3 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-gold-500">
+        </div>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div id="news-tabs" class="flex flex-wrap gap-2 mb-8">
+        <!-- Injected via JS -->
+      </div>
+
+      <!-- News Grid -->
+      <div id="news-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECTION 6: DOWNLOAD CENTER ================= -->
+  <section id="downloads" class="py-16 px-4 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
+        <div>
+          <span class="text-xs font-semibold tracking-wider text-gold-600 uppercase font-prompt">DOWNLOAD CENTER</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-navy-800 font-prompt mt-1">ดาวน์โหลดแบบฟอร์มเอกสาร</h2>
+          <p class="text-slate-500 text-sm mt-1">แบบฟอร์มใบลา เอกสารขอเสนอปรับวิทยฐานะ และแบบขอรับสวัสดิการต่างๆ</p>
+        </div>
+
+        <div class="mt-4 md:mt-0">
+          <input type="text" id="form-search" onkeyup="filterForms()" placeholder="ค้นหาแบบฟอร์ม..." class="px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-gold-500">
+        </div>
+      </div>
+
+      <!-- Downloads Table -->
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-navy-800 text-white font-prompt text-xs uppercase">
+              <tr>
+                <th class="px-6 py-4">ประเภท</th>
+                <th class="px-6 py-4">ชื่อแบบฟอร์ม / เอกสาร</th>
+                <th class="px-6 py-4">หมวดหมู่</th>
+                <th class="px-6 py-4">ขนาดไฟล์</th>
+                <th class="px-6 py-4 text-center">ดาวน์โหลด</th>
+              </tr>
+            </thead>
+            <tbody id="forms-table-body" class="divide-y divide-slate-200">
+              <!-- Injected via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECTION 7: PERSONNEL DIRECTORY (PUBLIC VIEW) ================= -->
+  <section id="personnel" class="py-16 px-4 bg-slate-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-xs font-semibold tracking-wider text-gold-600 uppercase font-prompt">DIRECTORY</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-navy-800 font-prompt mt-1">ทำเนียบบุคลากร</h2>
+        <p class="text-slate-500 text-sm mt-1">ข้อมูลข้าราชการครู บุคลากรทางการศึกษา และเจ้าหน้าที่โรงเรียนวังม่วงวิทยาคม</p>
+      </div>
+
+      <!-- Filter Controls (Dual Dropdown Filters) -->
+      <div class="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200 shadow-sm mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Filter 1: Subject Group -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1 font-prompt">กลุ่มสาระการเรียนรู้</label>
+            <select id="personnel-subject-filter" onchange="filterPersonnel()" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-gold-500">
+              <option value="ALL">ทั้งหมดทุกกลุ่มสาระฯ</option>
+              <!-- Dynamic options -->
+            </select>
+          </div>
+
+          <!-- Filter 2: Admin Division -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1 font-prompt">ฝ่ายงานบริหาร</label>
+            <select id="personnel-admin-filter" onchange="filterPersonnel()" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-gold-500">
+              <option value="ALL">ทั้งหมดทุกฝ่ายงาน</option>
+              <!-- Dynamic options -->
+            </select>
+          </div>
+
+          <!-- Search Input -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1 font-prompt">ค้นหาชื่อ-นามสกุล / ตำแหน่ง</label>
+            <div class="relative">
+              <input type="text" id="personnel-search" onkeyup="filterPersonnel()" placeholder="กรอกคำค้นหา..." class="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-gold-500">
+              <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Personnel Cards Grid -->
+      <div id="personnel-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECTION 8: CONTACT US ================= -->
+  <section id="contact" class="py-16 px-4 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Contact Info -->
+        <div>
+          <span class="text-xs font-semibold tracking-wider text-gold-600 uppercase font-prompt">GET IN TOUCH</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-navy-800 font-prompt mt-1 mb-4">ติดต่อกลุ่มบริหารงานบุคคล</h2>
+          <p class="text-slate-600 text-sm mb-8 leading-relaxed">
+            หากมีข้อสงสัยเกี่ยวกับสิทธิประโยชน์ ระเบียบการลา การยื่นขอประเมิน ว.PA หรือต้องการสอบถามข้อมูลเพิ่มเติม สามารถติดต่อเจ้าหน้าที่ผ่านแบบฟอร์มหรือช่องทางด้านล่างนี้
+          </p>
+
+          <div class="space-y-4">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-navy-50 text-navy-800 flex items-center justify-center shrink-0 mt-1">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-navy-800 text-sm font-prompt">สถานที่ติดต่อ</h4>
+                <p class="text-xs text-slate-600 mt-0.5">กลุ่มบริหารงานบุคคล อาคาร 1 ชั้น 2 โรงเรียนวังม่วงวิทยาคม อ.วังม่วง จ.สระบุรี 18220</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-navy-50 text-navy-800 flex items-center justify-center shrink-0 mt-1">
+                <i class="fa-solid fa-phone"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-navy-800 text-sm font-prompt">โทรศัพท์</h4>
+                <p class="text-xs text-slate-600 mt-0.5">036-362-123 (กลุ่มบริหารงานบุคคล)</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-navy-50 text-navy-800 flex items-center justify-center shrink-0 mt-1">
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-navy-800 text-sm font-prompt">ไปรษณีย์อิเล็กทรอนิกส์</h4>
+                <p class="text-xs text-slate-600 mt-0.5">personnel@wmw.ac.th</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="bg-slate-50 p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+          <h3 class="text-lg font-bold text-navy-800 font-prompt mb-4">ส่งข้อความติดต่อ / สอบถามข้อมูล</h3>
+          <form id="public-contact-form" onsubmit="submitContactForm(event)" class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">ชื่อ-นามสกุล ผู้ติดต่อ *</label>
+              <input type="text" id="contact-name" required class="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-gold-500">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">สถานะ / ตำแหน่ง</label>
+                <input type="text" id="contact-role" placeholder="เช่น ครู, บุคลากร" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-gold-500">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">เรื่องที่ต้องการติดต่อ *</label>
+                <input type="text" id="contact-subject" required placeholder="เช่น สอบถามเรื่อง ว.PA" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-gold-500">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">รายละเอียดข้อความ *</label>
+              <textarea id="contact-message" rows="4" required class="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-gold-500"></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-3 bg-navy-800 hover:bg-navy-700 text-white font-prompt font-semibold rounded-xl shadow transition">
+              <i class="fa-solid fa-paper-plane mr-2"></i> ส่งข้อความถึงเจ้าหน้าที่
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-navy-900 text-slate-400 text-xs py-8 px-4 border-t border-navy-800">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+      <div>
+        <p class="text-slate-300 font-semibold font-prompt text-sm">กลุ่มบริหารงานบุคคล โรงเรียนวังม่วงวิทยาคม</p>
+        <p class="mt-1">สังกัดสำนักงานเขตพื้นที่การศึกษามัธยมศึกษาสระบุรี</p>
+      </div>
+      <div>
+        <p>© 2026 Wang Muang Wittyakom School. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= MODAL: ADMIN LOGIN ================= -->
+  <div id="login-modal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative border border-gold-500/30">
+      <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <div class="text-center mb-6">
+        <div class="w-14 h-14 rounded-full bg-navy-800 text-gold-400 flex items-center justify-center text-2xl mx-auto mb-3 shadow">
+          <i class="fa-solid fa-user-lock"></i>
+        </div>
+        <h3 class="text-xl font-bold text-navy-800 font-prompt">เข้าสู่ระบบหลังบ้าน (Admin CMS)</h3>
+        <p class="text-xs text-slate-500 mt-1">เฉพาะเจ้าหน้าที่กลุ่มบริหารงานบุคคลเท่านั้น</p>
+      </div>
+
+      <form onsubmit="handleLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">ชื่อผู้ใช้งาน (Username)</label>
+          <input type="text" id="login-user" required autocomplete="username" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-gold-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">รหัสผ่าน (Password)</label>
+          <input type="password" id="login-pass" required autocomplete="current-password" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-gold-500">
+        </div>
+
+        <div id="login-error" class="hidden text-xs text-rose-600 bg-rose-50 p-2 rounded-lg border border-rose-200">
+          ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง
+        </div>
+
+        <button type="submit" class="w-full py-3 bg-navy-800 hover:bg-navy-700 text-white font-prompt font-semibold rounded-xl shadow transition">
+          เข้าสู่ระบบ
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: FULL ADMIN CMS PANEL ================= -->
+  <div id="admin-panel-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+    <div class="bg-slate-100 rounded-2xl w-full max-w-7xl h-[92vh] flex flex-col overflow-hidden shadow-2xl border border-navy-700">
+      
+      <!-- Top Admin Header -->
+      <div class="bg-navy-900 text-white px-6 py-4 flex items-center justify-between border-b border-navy-700 shrink-0">
+        <div class="flex items-center gap-3">
+          <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+          <h2 class="text-lg font-bold font-prompt tracking-wide text-white">ระบบจัดการหลังบ้าน (Admin CMS Panel)</h2>
+        </div>
+        <div class="flex items-center gap-3">
+          <button onclick="closeAdminPanel()" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white text-xs font-prompt rounded-lg transition">
+            <i class="fa-solid fa-arrow-right-from-bracket mr-1"></i> ออกจากหลังบ้าน
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Layout: Sidebar & Content -->
+      <div class="flex flex-1 overflow-hidden">
+        
+        <!-- CMS Sidebar Navigation -->
+        <aside class="w-64 bg-navy-800 text-slate-300 p-4 shrink-0 overflow-y-auto hidden md:flex flex-col justify-between border-r border-navy-700">
+          <div class="space-y-1">
+            <div class="text-[10px] font-semibold text-gold-400 uppercase tracking-wider px-3 mb-2 font-prompt">เมนูการจัดการ</div>
+            <button onclick="switchAdminTab('overview')" id="tab-btn-overview" class="w-full text-left px-3 py-2.5 rounded-xl font-prompt text-sm flex items-center gap-2.5 transition bg-gold-500 text-navy-950 font-bold shadow">
+              <i class="fa-solid fa-chart-pie w-5"></i> ภาพรวมระบบ
+            </button>
+            <button onclick="switchAdminTab('news')" id="tab-btn-news" class="w-full text-left px-3 py-2.5 rounded-xl font-prompt text-sm flex items-center gap-2.5 transition hover:bg-navy-700 text-slate-300">
+              <i class="fa-solid fa-newspaper w-5"></i> จัดการข่าวสาร
+            </button>
+            <button onclick="switchAdminTab('forms')" id="tab-btn-forms" class="w-full text-left px-3 py-2.5 rounded-xl font-prompt text-sm flex items-center gap-2.5 transition hover:bg-navy-700 text-slate-300">
+              <i class="fa-solid fa-file-contract w-5"></i> จัดการแบบฟอร์ม
+            </button>
+            <button onclick="switchAdminTab('services')" id="tab-btn-services" class="w-full text-left px-3 py-2.5 rounded-xl font-prompt text-sm flex items-center gap-2.5 transition hover:bg-navy-700 text-slate-300">
+              <i class="fa-solid fa-cubes w-5"></i> จัดการ e-Services
+            </button>
+            <button onclick="switchAdminTab('personnel')" id="tab-btn-personnel" class="w-full text-left px-3 py-2.5 rounded-xl font-prompt text-sm flex items-center gap-2.5 transition hover:bg-navy-700 text-slate-300">
+              <i class="fa-solid fa-users-gear w-5"></i> จัดการบุคลากร & ว.PA
+            </button>
+            <button onclick="switchAdminTab('categories')" id="tab-btn-categories" class="w-full text-left px-3 py-2.5 rounded-xl font-prompt text-sm flex items-center gap-2.5 transition hover:bg-navy-700 text-slate-300">
+              <i class="fa-solid fa-tags w-5"></i> จัดการหมวดหมู่/ฝ่าย
+            </button>
+            <button onclick="switchAdminTab('inbox')" id="tab-btn-inbox" class="w-full text-left px-3 py-2.5 rounded-xl font-prompt text-sm flex items-center gap-2.5 transition hover:bg-navy-700 text-slate-300 relative">
+              <i class="fa-solid fa-inbox w-5"></i> ข้อความติดต่อ
+              <span id="cms-unread-badge" class="ml-auto bg-crimson-600 text-white text-[10px] px-2 py-0.5 rounded-full hidden">0</span>
+            </button>
+          </div>
+          <div class="text-xs text-slate-500 px-3 pt-4 border-t border-navy-700">
+            ระบบบริหารงานบุคคล v4.0<br>สถานะ: ออนไลน์
+          </div>
+        </aside>
+
+        <!-- CMS Content Viewport -->
+        <main class="flex-1 bg-slate-100 p-4 sm:p-6 overflow-y-auto">
+          
+          <!-- TAB 1: OVERVIEW -->
+          <div id="cms-tab-overview" class="space-y-6">
+            <h3 class="text-xl font-bold font-prompt text-navy-800">แดชบอร์ดสรุปภาพรวม</h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="text-xs font-semibold text-slate-500">บุคลากรทั้งหมด</div>
+                <div id="cms-stat-staff" class="text-3xl font-bold text-navy-800 font-prompt mt-2">0</div>
+              </div>
+              <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="text-xs font-semibold text-slate-500">ข่าวประชาสัมพันธ์</div>
+                <div id="cms-stat-news" class="text-3xl font-bold text-gold-600 font-prompt mt-2">0</div>
+              </div>
+              <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="text-xs font-semibold text-slate-500">แบบฟอร์มดาวน์โหลด</div>
+                <div id="cms-stat-forms" class="text-3xl font-bold text-emerald-600 font-prompt mt-2">0</div>
+              </div>
+              <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="text-xs font-semibold text-slate-500">ข้อความยังไม่อ่าน</div>
+                <div id="cms-stat-inbox" class="text-3xl font-bold text-crimson-600 font-prompt mt-2">0</div>
+              </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+              <h4 class="font-bold text-navy-800 font-prompt mb-3">คำแนะนำการใช้งานระบบหลังบ้าน</h4>
+              <ul class="text-sm text-slate-600 space-y-2 list-disc list-inside">
+                <li>คุณสามารถ เพิ่ม/แก้ไข/ลบ รายชื่อบุคลากร ข้อมูล ว.PA ข่าวสาร และเอกสารได้จากเมนูด้านซ้าย</li>
+                <li>สามารถระบุ <strong>ลิงก์แนบภายนอก</strong> (เช่น Google Drive, ไฟล์ PDF บนเซิร์ฟเวอร์) ให้แก่ ข่าวสาร และ แบบฟอร์ม ได้ตามต้องการ</li>
+                <li>หากต้องการเปลี่ยนโครงสร้างหมวดหมู่กลุ่มสาระฯ หรือ ฝ่ายงานบริหาร สามารถจัดการได้ในเมนู "จัดการหมวดหมู่/ฝ่าย"</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- TAB 2: MANAGE NEWS -->
+          <div id="cms-tab-news" class="hidden space-y-6">
+            <div class="flex justify-between items-center">
+              <h3 class="text-xl font-bold font-prompt text-navy-800">จัดการข่าวประชาสัมพันธ์</h3>
+              <button onclick="openNewsFormModal()" class="px-4 py-2 bg-navy-800 hover:bg-navy-700 text-white font-prompt text-sm rounded-xl shadow">
+                <i class="fa-solid fa-plus mr-1"></i> เพิ่มข่าวสารใหม่
+              </button>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+              <table class="w-full text-left text-sm">
+                <thead class="bg-slate-100 font-prompt text-xs text-slate-600 uppercase">
+                  <tr>
+                    <th class="px-4 py-3">วันที่</th>
+                    <th class="px-4 py-3">หัวข้อข่าว</th>
+                    <th class="px-4 py-3">หมวดหมู่</th>
+                    <th class="px-4 py-3">ลิงก์แนบ</th>
+                    <th class="px-4 py-3 text-right">จัดการ</th>
+                  </tr>
+                </thead>
+                <tbody id="cms-news-list" class="divide-y divide-slate-200">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- TAB 3: MANAGE FORMS -->
+          <div id="cms-tab-forms" class="hidden space-y-6">
+            <div class="flex justify-between items-center">
+              <h3 class="text-xl font-bold font-prompt text-navy-800">จัดการแบบฟอร์มดาวน์โหลด</h3>
+              <button onclick="openFormModal()" class="px-4 py-2 bg-navy-800 hover:bg-navy-700 text-white font-prompt text-sm rounded-xl shadow">
+                <i class="fa-solid fa-plus mr-1"></i> เพิ่มแบบฟอร์มใหม่
+              </button>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+              <table class="w-full text-left text-sm">
+                <thead class="bg-slate-100 font-prompt text-xs text-slate-600 uppercase">
+                  <tr>
+                    <th class="px-4 py-3">ชื่อแบบฟอร์ม</th>
+                    <th class="px-4 py-3">หมวดหมู่</th>
+                    <th class="px-4 py-3">ประเภท/ขนาด</th>
+                    <th class="px-4 py-3">ลิงก์ดาวน์โหลด</th>
+                    <th class="px-4 py-3 text-right">จัดการ</th>
+                  </tr>
+                </thead>
+                <tbody id="cms-forms-list" class="divide-y divide-slate-200">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- TAB 4: MANAGE SERVICES -->
+          <div id="cms-tab-services" class="hidden space-y-6">
+            <div class="flex justify-between items-center">
+              <h3 class="text-xl font-bold font-prompt text-navy-800">จัดการระบบบริการออนไลน์ (e-Services)</h3>
+              <button onclick="openServiceModal()" class="px-4 py-2 bg-navy-800 hover:bg-navy-700 text-white font-prompt text-sm rounded-xl shadow">
+                <i class="fa-solid fa-plus mr-1"></i> เพิ่มบริการใหม่
+              </button>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+              <table class="w-full text-left text-sm">
+                <thead class="bg-slate-100 font-prompt text-xs text-slate-600 uppercase">
+                  <tr>
+                    <th class="px-4 py-3">ชื่อบริการ</th>
+                    <th class="px-4 py-3">หมวดหมู่</th>
+                    <th class="px-4 py-3">สถานะ</th>
+                    <th class="px-4 py-3 text-right">จัดการ</th>
+                  </tr>
+                </thead>
+                <tbody id="cms-services-list" class="divide-y divide-slate-200">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- TAB 5: MANAGE PERSONNEL & PA -->
+          <div id="cms-tab-personnel" class="hidden space-y-6">
+            <div class="flex justify-between items-center">
+              <h3 class="text-xl font-bold font-prompt text-navy-800">จัดการข้อมูลบุคลากร & ว.PA</h3>
+              <button onclick="openPersonnelModal()" class="px-4 py-2 bg-navy-800 hover:bg-navy-700 text-white font-prompt text-sm rounded-xl shadow">
+                <i class="fa-solid fa-user-plus mr-1"></i> เพิ่มบุคลากรใหม่
+              </button>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                  <thead class="bg-slate-100 font-prompt text-xs text-slate-600 uppercase">
+                    <tr>
+                      <th class="px-4 py-3">เลขประจำตำแหน่ง</th>
+                      <th class="px-4 py-3">ชื่อ-นามสกุล</th>
+                      <th class="px-4 py-3">ตำแหน่ง/วิทยฐานะ</th>
+                      <th class="px-4 py-3">กลุ่มสาระฯ</th>
+                      <th class="px-4 py-3">สถานะ ว.PA</th>
+                      <th class="px-4 py-3 text-right">จัดการ</th>
+                    </tr>
+                  </thead>
+                  <tbody id="cms-personnel-list" class="divide-y divide-slate-200">
+                    <!-- Injected via JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 6: MANAGE CATEGORIES & DIVISIONS -->
+          <div id="cms-tab-categories" class="hidden space-y-6">
+            <h3 class="text-xl font-bold font-prompt text-navy-800">จัดการหมวดหมู่กลุ่มสาระฯ และ ฝ่ายงานบริหาร</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Subject Groups Category -->
+              <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h4 class="font-bold text-navy-800 font-prompt mb-3">กลุ่มสาระการเรียนรู้</h4>
+                <div class="flex gap-2 mb-4">
+                  <input type="text" id="new-subject-cat" placeholder="เพิ่มกลุ่มสาระฯ ใหม่..." class="flex-1 px-3 py-2 border border-slate-300 rounded-xl text-sm">
+                  <button onclick="addSubjectCategory()" class="px-4 py-2 bg-navy-800 text-white text-xs font-prompt rounded-xl">เพิ่ม</button>
+                </div>
+                <div id="cms-subject-cat-list" class="space-y-2">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+
+              <!-- Admin Divisions Category -->
+              <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h4 class="font-bold text-navy-800 font-prompt mb-3">ฝ่ายงานบริหาร</h4>
+                <div class="flex gap-2 mb-4">
+                  <input type="text" id="new-admin-div" placeholder="เพิ่มฝ่ายงานบริหาร ใหม่..." class="flex-1 px-3 py-2 border border-slate-300 rounded-xl text-sm">
+                  <button onclick="addAdminDivCategory()" class="px-4 py-2 bg-navy-800 text-white text-xs font-prompt rounded-xl">เพิ่ม</button>
+                </div>
+                <div id="cms-admin-div-list" class="space-y-2">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 7: INBOX -->
+          <div id="cms-tab-inbox" class="hidden space-y-6">
+            <h3 class="text-xl font-bold font-prompt text-navy-800">กล่องข้อความติดต่อจากหน้าเว็บ</h3>
+            <div id="cms-inbox-list" class="space-y-4">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SUB-MODAL: EDIT/ADD PERSONNEL ================= -->
+  <div id="personnel-modal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl relative border border-slate-200 overflow-y-auto max-h-[90vh]">
+      <button onclick="closePersonnelModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <h3 id="personnel-modal-title" class="text-xl font-bold text-navy-800 font-prompt mb-4">เพิ่ม / แก้ไขข้อมูลบุคลากร</h3>
+
+      <form onsubmit="savePersonnel(event)" class="space-y-4">
+        <input type="hidden" id="p-id">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">เลขประจำตำแหน่ง *</label>
+            <input type="text" id="p-pos-id" required placeholder="เช่น WMW-T001" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">ชื่อ-นามสกุล *</label>
+            <input type="text" id="p-name" required placeholder="เช่น นายสมชาย ใจดี" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">วัน/เดือน/ปีเกิด</label>
+            <input type="date" id="p-dob" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">ตำแหน่ง</label>
+            <input type="text" id="p-position" placeholder="เช่น ครู, ครูผู้ช่วย, ผู้อำนวยการ" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">วิทยฐานะ</label>
+            <select id="p-rank" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+              <option value="-">- ไม่มี -</option>
+              <option value="ชำนาญการ">ชำนาญการ</option>
+              <option value="ชำนาญการพิเศษ">ชำนาญการพิเศษ</option>
+              <option value="เชี่ยวชาญ">เชี่ยวชาญ</option>
+              <option value="เชี่ยวชาญพิเศษ">เชี่ยวชาญพิเศษ</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">กลุ่มสาระการเรียนรู้</label>
+            <select id="p-subject-group" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+              <!-- Dynamic options -->
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">ฝ่ายงานบริหาร</label>
+            <select id="p-admin-div" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+              <!-- Dynamic options -->
+            </select>
+          </div>
+        </div>
+
+        <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
+          <div class="text-xs font-bold text-navy-800 font-prompt">ข้อมูลประเมิน ว.PA</div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">สถานะ ว.PA</label>
+              <select id="p-pa-status" class="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs">
+                <option value="พร้อมยื่นประเมิน">พร้อมยื่นประเมิน</option>
+                <option value="อยู่ระหว่างการประเมิน">อยู่ระหว่างการประเมิน</option>
+                <option value="ผ่านการประเมินแล้ว">ผ่านการประเมินแล้ว</option>
+                <option value="รอครบคุณสมบัติ">รอครบคุณสมบัติ</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">สะสมผ่าน PA (ปี)</label>
+              <input type="number" id="p-pa-years" min="0" max="10" value="2" class="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">ปีที่พร้อมยื่นขอ</label>
+              <input type="text" id="p-target-year" placeholder="เช่น 2568" class="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs">
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">เบอร์โทรศัพท์</label>
+            <input type="text" id="p-phone" placeholder="081-xxx-xxxx" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">อีเมล</label>
+            <input type="email" id="p-email" placeholder="teacher@wmw.ac.th" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">รูปโปรไฟล์ (URL)</label>
+            <input type="text" id="p-avatar" placeholder="https://..." class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-4 border-t border-slate-200">
+          <button type="button" onclick="closePersonnelModal()" class="px-4 py-2 bg-slate-200 text-slate-700 text-sm font-prompt rounded-xl">ยกเลิก</button>
+          <button type="submit" class="px-6 py-2 bg-navy-800 text-white text-sm font-prompt rounded-xl shadow">บันทึกข้อมูล</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= SUB-MODAL: EDIT/ADD NEWS ================= -->
+  <div id="news-form-modal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl relative border border-slate-200">
+      <button onclick="closeNewsFormModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <h3 id="news-modal-title" class="text-xl font-bold text-navy-800 font-prompt mb-4">เพิ่ม / แก้ไข ข่าวสาร</h3>
+
+      <form onsubmit="saveNews(event)" class="space-y-4">
+        <input type="hidden" id="n-id">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">หัวข้อข่าวสาร *</label>
+          <input type="text" id="n-title" required class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">หมวดหมู่ข่าว</label>
+            <select id="n-category" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+              <option value="คำสั่ง/ประกาศ">คำสั่ง/ประกาศ</option>
+              <option value="อบรม/พัฒนา">อบรม/พัฒนา</option>
+              <option value="วิทยฐานะ ว.PA">วิทยฐานะ ว.PA</option>
+              <option value="ประชาสัมพันธ์">ประชาสัมพันธ์</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">วันที่ประกาศ</label>
+            <input type="date" id="n-date" required class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">ข้อความย่อ (Excerpt)</label>
+          <input type="text" id="n-excerpt" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">เนื้อหาข่าวฉบับเต็ม</label>
+          <textarea id="n-content" rows="4" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm"></textarea>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">ลิงก์แนบภายนอก (Google Drive / PDF)</label>
+          <input type="url" id="n-external-url" placeholder="https://drive.google.com/..." class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+        </div>
+        <div class="flex justify-end gap-2 pt-4">
+          <button type="button" onclick="closeNewsFormModal()" class="px-4 py-2 bg-slate-200 text-slate-700 text-sm font-prompt rounded-xl">ยกเลิก</button>
+          <button type="submit" class="px-6 py-2 bg-navy-800 text-white text-sm font-prompt rounded-xl shadow">บันทึก</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= SUB-MODAL: EDIT/ADD DOWNLOAD FORM ================= -->
+  <div id="form-modal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative border border-slate-200">
+      <button onclick="closeFormModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <h3 id="form-modal-title" class="text-xl font-bold text-navy-800 font-prompt mb-4">เพิ่ม / แก้ไข แบบฟอร์ม</h3>
+
+      <form onsubmit="saveFormItem(event)" class="space-y-4">
+        <input type="hidden" id="f-id">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">ชื่อแบบฟอร์ม / เอกสาร *</label>
+          <input type="text" id="f-title" required class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">หมวดหมู่</label>
+            <select id="f-category" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+              <option value="งานการลา">งานการลา</option>
+              <option value="งานวิทยฐานะ">งานวิทยฐานะ</option>
+              <option value="งานสวัสดิการ">งานสวัสดิการ</option>
+              <option value="งานขอหนังสือรับรอง">งานขอหนังสือรับรอง</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">ประเภทไฟล์ (PDF, DOCX)</label>
+            <input type="text" id="f-filetype" placeholder="PDF" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">ลิงก์ดาวน์โหลด (URL)</label>
+          <input type="url" id="f-download-url" placeholder="https://drive.google.com/..." required class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+        </div>
+        <div class="flex justify-end gap-2 pt-4">
+          <button type="button" onclick="closeFormModal()" class="px-4 py-2 bg-slate-200 text-slate-700 text-sm font-prompt rounded-xl">ยกเลิก</button>
+          <button type="submit" class="px-6 py-2 bg-navy-800 text-white text-sm font-prompt rounded-xl shadow">บันทึก</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= SUB-MODAL: READ NEWS DETAIL ================= -->
+  <div id="news-detail-modal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200 overflow-y-auto max-h-[90vh]">
+      <button onclick="closeNewsDetailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <div id="news-detail-content">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    // Storage Key
+    // ===== ตั้งค่า: วาง URL ของ Web App ที่ได้จากการ Deploy Apps Script =====
+    const API_URL = 'https://script.google.com/macros/s/AKfycbxrqT-Wxyl8lnIvtmuTCFhyHBteaj2Hns1qQWiB3XRz6GzkK-TdxsgBdSjhDAht-Ue9pA/exec';   // เช่น 'https://script.google.com/macros/s/AKfyc.../exec'
+    const TOKEN_KEY = 'wmw_admin_token';
+    let adminToken = sessionStorage.getItem(TOKEN_KEY) || '';
+    let paRequireDob = true;
+
+    const val = id => document.getElementById(id).value;
+    const esc = t => String(t ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+    // เรียก Apps Script: 'public' ใช้ GET, ที่เหลือใช้ POST (text/plain เพื่อเลี่ยง CORS preflight)
+    async function api(action, payload = {}) {
+      if (!API_URL) throw new Error('ยังไม่ได้ตั้งค่า API_URL ในไฟล์ (ดู README)');
+      const res = action === 'public'
+        ? await fetch(API_URL)
+        : await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                                 body: JSON.stringify({ action, token: adminToken, ...payload }) });
+      const json = await res.json();
+      if (!json.ok) {
+        if (json.code === 'AUTH') { adminToken = ''; sessionStorage.removeItem(TOKEN_KEY); }
+        throw new Error(json.error || 'เกิดข้อผิดพลาด');
+      }
+      return json.data;
+    }
+
+    // รับข้อมูลจาก Sheet มาแสดงผลทุกส่วน (หน้าเว็บ + กราฟ + หลังบ้านถ้าเปิดอยู่)
+    function applyData(data) {
+      db = data;
+      paRequireDob = !data.config || data.config.paRequireDob !== false;
+      document.getElementById('pa-dob-wrap').classList.toggle('hidden', !paRequireDob);
+      saveDatabase();
+    }
+
+    // บันทึก/ลบข้อมูลหลังบ้าน แล้วโหลดข้อมูลล่าสุดจาก Sheet กลับมาแสดง
+    async function adminCall(action, payload, afterFn) {
+      try {
+        await api(action, payload);
+        applyData(await api('adminList'));
+        if (afterFn) afterFn();
+      } catch (err) {
+        alert(err.message);
+        if (!adminToken) { closeAdminPanel(); openLoginModal(); }
+      }
+    }
+
+    function showDemoBanner(msg) {
+      if (document.getElementById('demo-banner')) return;
+      document.body.insertAdjacentHTML('afterbegin', `<div id="demo-banner" class="bg-rose-700 text-white text-xs text-center py-1.5 px-3">โหมดตัวอย่าง (ข้อมูลไม่ถูกบันทึก): ${esc(msg)}</div>`);
+    }
+
+    // Sample Data Initialization
+    const initialDb = {
+      subjectGroups: [
+        'วิทยาศาสตร์และเทคโนโลยี',
+        'คณิตศาสตร์',
+        'ภาษาไทย',
+        'ภาษาต่างประเทศ',
+        'สังคมศึกษา ศาสนา และวัฒนธรรม',
+        'สุขศึกษาและพลศึกษา',
+        'ศิลปะ',
+        'การงานอาชีพ',
+        'กิจกรรมพัฒนาผู้เรียน'
+      ],
+      adminDivisions: [
+        'บริหารงานบุคคล',
+        'บริหารวิชาการ',
+        'บริหารงบประมาณ',
+        'บริหารทั่วไป'
+      ],
+      personnel: [
+        {
+          id: 'p-1',
+          posId: 'WMW-T001',
+          name: 'นายสมชาย วงศ์สว่าง',
+          dob: '1982-05-14',
+          position: 'ครู',
+          rank: 'ชำนาญการพิเศษ',
+          subjectGroup: 'วิทยาศาสตร์และเทคโนโลยี',
+          adminDiv: 'บริหารงานบุคคล',
+          paStatus: 'พร้อมยื่นประเมิน',
+          paYears: 3,
+          targetYear: '2568',
+          phone: '081-234-5678',
+          email: 'somchai@wmw.ac.th',
+          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'
+        },
+        {
+          id: 'p-2',
+          posId: 'WMW-T002',
+          name: 'นางสาวกนกวรรณ รัตนอุบล',
+          dob: '1988-11-20',
+          position: 'ครู',
+          rank: 'ชำนาญการ',
+          subjectGroup: 'คณิตศาสตร์',
+          adminDiv: 'บริหารวิชาการ',
+          paStatus: 'อยู่ระหว่างการประเมิน',
+          paYears: 2,
+          targetYear: '2569',
+          phone: '089-876-5432',
+          email: 'kanokwan@wmw.ac.th',
+          avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150'
+        },
+        {
+          id: 'p-3',
+          posId: 'WMW-T003',
+          name: 'นายวิชัย สุวรรณรัตน์',
+          dob: '1975-02-08',
+          position: 'ครู',
+          rank: 'เชี่ยวชาญ',
+          subjectGroup: 'ภาษาไทย',
+          adminDiv: 'บริหารงานบุคคล',
+          paStatus: 'ผ่านการประเมินแล้ว',
+          paYears: 4,
+          targetYear: '2567',
+          phone: '086-112-2334',
+          email: 'wichai@wmw.ac.th',
+          avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150'
+        },
+        {
+          id: 'p-4',
+          posId: 'WMW-T004',
+          name: 'นางนภา พรหมศิริ',
+          dob: '1995-09-12',
+          position: 'ครูผู้ช่วย',
+          rank: '-',
+          subjectGroup: 'ภาษาต่างประเทศ',
+          adminDiv: 'บริหารทั่วไป',
+          paStatus: 'รอครบคุณสมบัติ',
+          paYears: 1,
+          targetYear: '2570',
+          phone: '090-555-6677',
+          email: 'napha@wmw.ac.th',
+          avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150'
+        }
+      ],
+      news: [
+        {
+          id: 'n-1',
+          date: '2026-10-20',
+          title: 'ประกาศรอบการยื่นข้อตกลงในการพัฒนางาน (PA) ประจำปีงบประมาณ 2570',
+          category: 'วิทยฐานะ ว.PA',
+          excerpt: 'ขอให้ข้าราชการครูและบุคลากรทางการศึกษาจัดทำข้อตกลงในการพัฒนางาน (PA) ผ่านระบบออนไลน์ภายในวันที่ 30 พฤศจิกายนนี้',
+          content: 'ตามหลักเกณฑ์และวิธีการประเมินตำแหน่งและวิทยฐานะข้าราชการครูฯ (ว.PA) กลุ่มบริหารงานบุคคลขอแจ้งให้ครูทุกท่านดำเนินการจัดทำบันทึกข้อตกลง PA และส่งเอกสารผ่านระบบ e-Services หรือเสนอผ่านหัวหน้ากลุ่มสาระการเรียนรู้...',
+          externalUrl: 'https://drive.google.com'
+        },
+        {
+          id: 'n-2',
+          date: '2026-10-15',
+          title: 'คำสั่งโรงเรียนวังม่วงวิทยาคม ที่ 142/2569 เรื่อง มอบหมายหน้าที่การปฏิบัติงานครูประจำชั้น',
+          category: 'คำสั่ง/ประกาศ',
+          excerpt: 'คำสั่งมอบหมายหน้าที่ครูประจำชั้นและครูที่ปรึกษา ประจำภาคเรียนที่ 2 ปีการศึกษา 2569',
+          content: 'เพื่อให้การบริหารงานวิชาการและการดูแลช่วยเหลือนักเรียนเป็นไปอย่างมีประสิทธิภาพ...',
+          externalUrl: 'https://drive.google.com'
+        }
+      ],
+      forms: [
+        {
+          id: 'f-1',
+          title: 'แบบใบลาป่วย ลากิจส่วนตัว ลาคลอดบุตร (แบบใหม่)',
+          category: 'งานการลา',
+          fileType: 'PDF',
+          fileSize: '245 KB',
+          downloadUrl: 'https://drive.google.com'
+        },
+        {
+          id: 'f-2',
+          title: 'แบบรายงานผลการปฏิบัติตามข้อตกลงในการพัฒนางาน (PA 2/ส)',
+          category: 'งานวิทยฐานะ',
+          fileType: 'DOCX',
+          fileSize: '1.2 MB',
+          downloadUrl: 'https://drive.google.com'
+        },
+        {
+          id: 'f-3',
+          title: 'แบบขอหนังสือรับรองเงินเดือน / รับรองการทำงาน',
+          category: 'งานขอหนังสือรับรอง',
+          fileType: 'PDF',
+          fileSize: '180 KB',
+          downloadUrl: 'https://drive.google.com'
+        }
+      ],
+      services: [
+        {
+          id: 's-1',
+          title: 'ระบบบันทึกการลาออนไลน์',
+          category: 'ระบบการลา/ลงเวลา',
+          description: 'ยื่นใบลาป่วย ลากิจ ตรวจสอบสิทธิวันลาสะสมคงเหลือออนไลน์',
+          icon: 'fa-solid fa-calendar-check',
+          url: '#',
+          status: 'เปิดใช้งาน'
+        },
+        {
+          id: 's-2',
+          title: 'ระบบยื่นประเมิน ว.PA',
+          category: 'ประเมิน ว.PA',
+          description: 'ส่งเอกสารข้อตกลง PA และติดตามผลการประเมินวิทยฐานะ',
+          icon: 'fa-solid fa-award',
+          url: '#',
+          status: 'เปิดใช้งาน'
+        },
+        {
+          id: 's-3',
+          title: 'ระบบสารบรรณและคำสั่งโรงเรียน',
+          category: 'สารบรรณ/เอกสาร',
+          description: 'ค้นหาและดาวน์โหลดสำเนาคำสั่งโรงเรียน หนังสือส่งออก',
+          icon: 'fa-solid fa-folder-open',
+          url: '#',
+          status: 'เปิดใช้งาน'
+        },
+        {
+          id: 's-4',
+          title: 'ระบบสลิปเงินเดือนออนไลน์',
+          category: 'สวัสดิการ/เงินเดือน',
+          description: 'ตรวจสอบและพิมพ์ใบแจ้งยอดเงินเดือนและค่าตอบแทน',
+          icon: 'fa-solid fa-file-invoice-dollar',
+          url: '#',
+          status: 'พร้อมบริการ'
+        }
+      ],
+      inbox: [
+        {
+          id: 'm-1',
+          date: '2026-10-24 10:15',
+          name: 'นางสาวศิริพร มีสุข',
+          role: 'ครูผู้ช่วย',
+          subject: 'สอบถามการนับระยะเวลาครองตำแหน่งยื่น PA',
+          message: 'บรรจุเมื่อ ม.ค. 2568 สามารถยื่นประเมินขอมีวิทยฐานะชำนาญการได้ในปีใดคะ?',
+          read: false
+        }
+      ]
+    };
+
+    // Global App State
+    let db = {};
+
+    // Initialization
+    window.onload = loadDatabase;
+
+    async function loadDatabase() {
+      try {
+        applyData(await api(adminToken ? 'adminList' : 'public'));
+      } catch (err) {
+        if (adminToken) { adminToken = ''; sessionStorage.removeItem(TOKEN_KEY); return loadDatabase(); }
+        showDemoBanner(err.message);
+        applyData(JSON.parse(JSON.stringify(initialDb)));
+      }
+    }
+
+    function saveDatabase() {
+      renderPublicContent();
+      refreshCharts();
+      if (!document.getElementById('admin-panel-modal').classList.contains('hidden')) {
+        renderAdminCMS();
+      }
+    }
+
+    // กราฟต้องสร้างใหม่ทุกครั้งที่ข้อมูลเปลี่ยน (ของเดิมสร้างครั้งเดียวแล้วไม่อัปเดต)
+    function refreshCharts() {
+      if (rankChartObj) rankChartObj.destroy();
+      if (subjectChartObj) subjectChartObj.destroy();
+      initCharts();
+    }
+
+
+
+    // Toggle Mobile Nav
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    function scrollToPA() {
+      document.getElementById('pa-check').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // ================= RENDER PUBLIC CONTENT =================
+    function renderPublicContent() {
+      renderServicesPublic();
+      renderNewsPublic();
+      renderFormsPublic();
+      renderPersonnelPublic();
+      updatePublicStats();
+    }
+
+    // e-Services Public Render
+    let currentServiceTab = 'ALL';
+    function renderServicesPublic() {
+      const container = document.getElementById('eservice-grid');
+      const tabsContainer = document.getElementById('eservice-tabs');
+      
+      const categories = ['ALL', ...new Set(db.services.map(s => s.category))];
+      
+      tabsContainer.innerHTML = categories.map(cat => `
+        <button onclick="filterServiceTab('${cat}')" class="px-4 py-1.5 text-xs font-prompt rounded-full transition ${currentServiceTab === cat ? 'bg-navy-800 text-gold-400 font-bold shadow' : 'bg-slate-200 text-slate-700 hover:bg-slate-300'}">
+          ${cat === 'ALL' ? 'ทั้งหมด' : cat}
+        </button>
+      `).join('');
+
+      const filtered = currentServiceTab === 'ALL' ? db.services : db.services.filter(s => s.category === currentServiceTab);
+
+      container.innerHTML = filtered.map(s => `
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition hover:border-gold-500 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-12 h-12 rounded-xl bg-navy-50 text-navy-800 flex items-center justify-center text-xl">
+                <i class="${esc(s.icon)}"></i>
+              </div>
+              <span class="text-[10px] font-semibold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">${esc(s.status)}</span>
+            </div>
+            <h3 class="font-bold text-navy-800 text-base font-prompt mb-1">${esc(s.title)}</h3>
+            <p class="text-xs text-slate-500 leading-relaxed mb-4">${esc(s.description)}</p>
+          </div>
+          <a href="${esc(s.url)}" rel="noopener" class="w-full py-2 bg-slate-100 hover:bg-navy-800 hover:text-white text-slate-700 text-xs font-prompt font-semibold rounded-xl transition text-center block">
+            เข้าใช้งานระบบ <i class="fa-solid fa-arrow-right text-[10px] ml-1"></i>
+          </a>
+        </div>
+      `).join('');
+    }
+
+    function filterServiceTab(cat) {
+      currentServiceTab = cat;
+      renderServicesPublic();
+    }
+
+    // Leave Accordion Toggle
+    function toggleAccordion(id) {
+      const el = document.getElementById(id);
+      const icon = document.getElementById(id + '-icon');
+      el.classList.toggle('hidden');
+      icon.classList.toggle('rotate-180');
+    }
+
+    // News Public Render
+    let currentNewsTab = 'ALL';
+    function renderNewsPublic() {
+      const grid = document.getElementById('news-grid');
+      const tabs = document.getElementById('news-tabs');
+      
+      const cats = ['ALL', 'คำสั่ง/ประกาศ', 'อบรม/พัฒนา', 'วิทยฐานะ ว.PA', 'ประชาสัมพันธ์'];
+      tabs.innerHTML = cats.map(c => `
+        <button onclick="filterNewsTab('${c}')" class="px-3.5 py-1.5 text-xs font-prompt rounded-lg transition ${currentNewsTab === c ? 'bg-navy-800 text-gold-400 font-bold' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-100'}">
+          ${c === 'ALL' ? 'ข่าวทั้งหมด' : c}
+        </button>
+      `).join('');
+
+      let items = currentNewsTab === 'ALL' ? db.news : db.news.filter(n => n.category === currentNewsTab);
+      
+      const searchVal = document.getElementById('news-search')?.value.toLowerCase();
+      if (searchVal) {
+        items = items.filter(n => n.title.toLowerCase().includes(searchVal) || n.excerpt.toLowerCase().includes(searchVal));
+      }
+
+      grid.innerHTML = items.map(n => `
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between hover:shadow-md transition">
+          <div class="p-6">
+            <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-navy-50 text-navy-700 font-medium">${esc(n.category)}</span>
+              <span><i class="fa-regular fa-calendar mr-1"></i>${esc(n.date)}</span>
+            </div>
+            <h3 class="font-bold text-navy-800 text-base font-prompt line-clamp-2 mb-2">${esc(n.title)}</h3>
+            <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed mb-4">${esc(n.excerpt)}</p>
+          </div>
+          <div class="px-6 pb-6 pt-0 flex gap-2">
+            <button onclick="openNewsDetail('${esc(n.id)}')" class="flex-1 py-2 bg-navy-800 hover:bg-navy-700 text-white text-xs font-prompt rounded-xl shadow transition">
+              อ่านรายละเอียด
+            </button>
+            ${n.externalUrl ? `
+              <a href="${esc(n.externalUrl)}" target="_blank" class="px-3 py-2 bg-gold-500 hover:bg-gold-400 text-slate-950 text-xs font-prompt rounded-xl transition flex items-center justify-center">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            ` : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterNewsTab(c) {
+      currentNewsTab = c;
+      renderNewsPublic();
+    }
+    function filterNews() {
+      renderNewsPublic();
+    }
+
+    function openNewsDetail(id) {
+      const item = db.news.find(n => n.id === id);
+      if (!item) return;
+
+      const container = document.getElementById('news-detail-content');
+      container.innerHTML = `
+        <div class="text-xs font-semibold px-2.5 py-1 rounded-full bg-navy-50 text-navy-700 inline-block mb-2">${esc(item.category)}</div>
+        <h2 class="text-2xl font-bold font-prompt text-navy-800 mb-2">${esc(item.title)}</h2>
+        <div class="text-xs text-slate-400 mb-6"><i class="fa-regular fa-calendar mr-1"></i>ประกาศเมื่อ: ${esc(item.date)}</div>
+        <div class="text-slate-600 text-sm leading-relaxed space-y-4 mb-6">
+          <p class="font-medium text-slate-800">${esc(item.excerpt)}</p>
+          <hr class="border-slate-200">
+          <p>${esc(item.content)}</p>
+        </div>
+        ${item.externalUrl ? `
+          <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl mb-6 flex items-center justify-between">
+            <span class="text-xs text-slate-600 font-medium">เอกสารหรือไฟล์แนบภายนอก</span>
+            <a href="${esc(item.externalUrl)}" target="_blank" class="px-4 py-2 bg-gold-500 hover:bg-gold-400 text-slate-950 font-prompt text-xs font-bold rounded-lg transition">
+              <i class="fa-solid fa-link mr-1"></i> เปิดลิงก์แนบ
+            </a>
+          </div>
+        ` : ''}
+        <div class="flex justify-end">
+          <button onclick="closeNewsDetailModal()" class="px-5 py-2 bg-slate-200 text-slate-700 text-xs font-prompt rounded-xl">ปิดหน้าต่าง</button>
+        </div>
+      `;
+      document.getElementById('news-detail-modal').classList.remove('hidden');
+    }
+
+    function closeNewsDetailModal() {
+      document.getElementById('news-detail-modal').classList.add('hidden');
+    }
+
+    // Forms Public Render
+    function renderFormsPublic() {
+      const tbody = document.getElementById('forms-table-body');
+      const searchVal = document.getElementById('form-search')?.value.toLowerCase();
+
+      let items = db.forms;
+      if (searchVal) {
+        items = items.filter(f => f.title.toLowerCase().includes(searchVal) || f.category.toLowerCase().includes(searchVal));
+      }
+
+      tbody.innerHTML = items.map(f => `
+        <tr class="hover:bg-slate-100/50 transition">
+          <td class="px-6 py-4 font-mono text-xs font-bold text-crimson-700">${esc(f.fileType)}</td>
+          <td class="px-6 py-4 font-semibold text-navy-800 text-sm">${esc(f.title)}</td>
+          <td class="px-6 py-4 text-xs text-slate-500">${esc(f.category)}</td>
+          <td class="px-6 py-4 text-xs text-slate-400">${f.fileSize || 'N/A'}</td>
+          <td class="px-6 py-4 text-center">
+            <a href="${esc(f.downloadUrl)}" target="_blank" class="inline-flex items-center gap-1.5 px-4 py-1.5 bg-navy-800 hover:bg-navy-700 text-white text-xs font-prompt rounded-lg shadow transition">
+              <i class="fa-solid fa-download"></i> ดาวน์โหลด
+            </a>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function filterForms() {
+      renderFormsPublic();
+    }
+
+    // Personnel Directory Public Render
+    function renderPersonnelPublic() {
+      const grid = document.getElementById('personnel-grid');
+      const subjectFilter = document.getElementById('personnel-subject-filter');
+      const adminFilter = document.getElementById('personnel-admin-filter');
+
+      const prevS = subjectFilter.value, prevA = adminFilter.value; // จำค่าที่เลือกไว้ก่อนวาดใหม่
+      // Populate select options
+      subjectFilter.innerHTML = '<option value="ALL">ทั้งหมดทุกกลุ่มสาระฯ</option>' + db.subjectGroups.map(sg => `<option value="${sg}">${sg}</option>`).join('');
+      adminFilter.innerHTML = '<option value="ALL">ทั้งหมดทุกฝ่ายงาน</option>' + db.adminDivisions.map(ad => `<option value="${ad}">${ad}</option>`).join('');
+
+      let items = db.personnel;
+      
+      subjectFilter.value = prevS || 'ALL'; if (!subjectFilter.value) subjectFilter.value = 'ALL';
+      adminFilter.value = prevA || 'ALL'; if (!adminFilter.value) adminFilter.value = 'ALL';
+      const sVal = subjectFilter.value;
+      const aVal = adminFilter.value;
+      const qVal = document.getElementById('personnel-search')?.value.toLowerCase();
+
+      if (sVal !== 'ALL') items = items.filter(p => p.subjectGroup === sVal);
+      if (aVal !== 'ALL') items = items.filter(p => p.adminDiv === aVal);
+      if (qVal) {
+        items = items.filter(p => p.name.toLowerCase().includes(qVal) || p.position.toLowerCase().includes(qVal));
+      }
+
+      grid.innerHTML = items.map(p => `
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition p-5 text-center flex flex-col items-center">
+          <img src="${p.avatar || 'https://placehold.co/150x150/11223F/E5A93C?text=Teacher'}" alt="${esc(p.name)}" class="w-24 h-24 rounded-full object-cover border-4 border-gold-400/30 mb-4 shadow">
+          <h3 class="font-bold text-navy-800 font-prompt text-base">${esc(p.name)}</h3>
+          <p class="text-xs text-gold-600 font-semibold mt-0.5">${esc(p.position)} ${p.rank !== '-' ? '(' + p.rank + ')' : ''}</p>
+          <div class="w-full my-3 border-t border-slate-100"></div>
+          <div class="text-xs text-slate-500 space-y-1 w-full text-left">
+            <div><i class="fa-solid fa-book-bookmark text-slate-400 w-4"></i> กลุ่มสาระฯ: <span class="text-slate-700">${esc(p.subjectGroup)}</span></div>
+            <div><i class="fa-solid fa-sitemap text-slate-400 w-4"></i> ฝ่ายงาน: <span class="text-slate-700">${esc(p.adminDiv)}</span></div>
+            <div><i class="fa-solid fa-envelope text-slate-400 w-4"></i> ${p.email || '-'}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterPersonnel() {
+      renderPersonnelPublic();
+    }
+
+    // Public Stats
+    function updatePublicStats() {
+      document.getElementById('stat-total-staff').innerText = db.personnel.length;
+      document.getElementById('stat-teacher-count').innerText = db.personnel.filter(p => p.position.includes('ครู')).length;
+      document.getElementById('stat-ranked-count').innerText = db.personnel.filter(p => p.rank !== '-' && p.rank).length;
+      document.getElementById('stat-temp-count').innerText = db.personnel.filter(p => !p.position.includes('ครู')).length;
+    }
+
+    // PA Search Lookup
+    async function searchPA() {
+      const posId = document.getElementById('pa-search-input').value.trim().toUpperCase();
+      const card = document.getElementById('pa-result-card');
+
+      if (!posId) {
+        alert('กรุณากรอกเลขประจำตำแหน่ง');
+        return;
+      }
+
+      let p = null;
+      try {
+        p = await api('pa', { posId, dob: paRequireDob ? val('pa-dob-input') : '' });
+      } catch (err) { alert(err.message); return; }
+
+      if (!p) {
+        card.classList.remove('hidden');
+        card.innerHTML = `
+          <div class="text-center py-8">
+            <i class="fa-solid fa-triangle-exclamation text-amber-500 text-4xl mb-3"></i>
+            <h3 class="text-lg font-bold text-slate-800 font-prompt">ไม่พบข้อมูลในระบบ</h3>
+            <p class="text-xs text-slate-500 mt-1">โปรดตรวจสอบเลขประจำตำแหน่ง เช่น WMW-T001 หรือติดต่อฝ่ายบริหารงานบุคคล</p>
+          </div>
+        `;
+        return;
+      }
+
+      card.classList.remove('hidden');
+      card.innerHTML = `
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-slate-200 pb-4 mb-6">
+          <div class="flex items-center gap-4">
+            <img src="${p.avatar || 'https://placehold.co/100'}" class="w-16 h-16 rounded-full border-2 border-gold-500 object-cover">
+            <div>
+              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-navy-800 text-gold-400">${esc(p.posId)}</span>
+              <h3 class="text-xl font-bold font-prompt text-navy-800 mt-1">${esc(p.name)}</h3>
+              <p class="text-xs text-slate-500">${esc(p.position)} | ${esc(p.subjectGroup)}</p>
+            </div>
+          </div>
+          <div class="mt-4 sm:mt-0">
+            <span class="px-4 py-1.5 rounded-full text-xs font-bold font-prompt bg-emerald-100 text-emerald-800 border border-emerald-300">
+              สถานะ: ${esc(p.paStatus)}
+            </span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <div class="text-xs text-slate-500 font-medium">วิทยฐานะปัจจุบัน</div>
+            <div class="text-base font-bold text-navy-800 font-prompt mt-1">${p.rank || 'ไม่มี'}</div>
+          </div>
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <div class="text-xs text-slate-500 font-medium">รอบสะสมผลงาน (PA)</div>
+            <div class="text-base font-bold text-gold-600 font-prompt mt-1">${esc(p.paYears)} รอบปีงบประมาณ</div>
+          </div>
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <div class="text-xs text-slate-500 font-medium">ปีที่พร้อมยื่นประเมินขอมี/เลื่อน</div>
+            <div class="text-base font-bold text-emerald-600 font-prompt mt-1">ปีงบประมาณ ${esc(p.targetYear)}</div>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <div class="text-xs font-bold text-slate-700 font-prompt">ความคืบหน้าเงื่อนไขคุณสมบัติ:</div>
+          <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
+            <div class="bg-gradient-to-r from-gold-500 to-emerald-500 h-full rounded-full" style="width: ${(p.paYears / 4) * 100}%"></div>
+          </div>
+          <div class="text-[11px] text-slate-500 flex justify-between pt-1">
+            <span>สะสมผลงาน ${esc(p.paYears)}/4 ปี</span>
+            <span>เป้าหมายยื่นประเมิน พ.ศ. ${esc(p.targetYear)}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    // Public Contact Form Submission
+    async function submitContactForm(e) {
+      e.preventDefault();
+      const form = e.target, btn = form.querySelector('button[type=submit]');
+      btn.disabled = true;
+      try {
+        await api('contact', { name: val('contact-name'), role: val('contact-role'),
+                               subject: val('contact-subject'), message: val('contact-message') });
+        alert('ส่งข้อความเรียบร้อยแล้ว เจ้าหน้าที่กลุ่มบริหารงานบุคคลจะติดต่อกลับโดยเร็วที่สุด');
+        form.reset();
+      } catch (err) { alert(err.message); }
+      btn.disabled = false;
+    }
+
+    // Charts Initialization
+    let rankChartObj = null;
+    let subjectChartObj = null;
+
+    function initCharts() {
+      // Rank Chart
+      const rankCtx = document.getElementById('rankChart').getContext('2d');
+      const ranks = ['ครูผู้ช่วย', 'ครู', 'ชำนาญการ', 'ชำนาญการพิเศษ', 'เชี่ยวชาญ'];
+      const rankCounts = ranks.map(r => db.personnel.filter(p => p.rank === r || (r === 'ครู' && p.position === 'ครู' && p.rank === '-') || (r === 'ครูผู้ช่วย' && p.position === 'ครูผู้ช่วย' && p.rank === '-')).length);
+
+      rankChartObj = new Chart(rankCtx, {
+        type: 'bar',
+        data: {
+          labels: ranks,
+          datasets: [{
+            label: 'จำนวน (คน)',
+            data: rankCounts,
+            backgroundColor: ['#3262A8', '#E5A93C', '#10B981', '#8B5CF6', '#EC4899'],
+            borderRadius: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } }
+        }
+      });
+
+      // Subject Group Chart
+      const subjectCtx = document.getElementById('subjectChart').getContext('2d');
+      const subjectLabels = db.subjectGroups;
+      const subjectCounts = subjectLabels.map(sg => db.personnel.filter(p => p.subjectGroup === sg).length);
+
+      subjectChartObj = new Chart(subjectCtx, {
+        type: 'doughnut',
+        data: {
+          labels: subjectLabels,
+          datasets: [{
+            data: subjectCounts,
+            backgroundColor: ['#1B365D', '#E5A93C', '#9B1B30', '#10B981', '#6366F1', '#F59E0B', '#EC4899', '#14B8A6', '#8B5CF6']
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'right', labels: { boxWidth: 12, font: { size: 10 } } } }
+        }
+      });
+    }
+
+    // ================= ADMIN CMS PANEL LOGIC =================
+    function openLoginModal() {
+      document.getElementById('login-modal').classList.remove('hidden');
+    }
+
+    function closeLoginModal() {
+      document.getElementById('login-modal').classList.add('hidden');
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const err = document.getElementById('login-error');
+      try {
+        const r = await api('login', { user: val('login-user'), pass: val('login-pass') });
+        adminToken = r.token;
+        sessionStorage.setItem(TOKEN_KEY, adminToken);
+        document.getElementById('login-pass').value = '';
+        err.classList.add('hidden');
+        closeLoginModal();
+        applyData(await api('adminList'));
+        openAdminPanel();
+      } catch (ex) {
+        err.textContent = ex.message;
+        err.classList.remove('hidden');
+      }
+    }
+
+    function openAdminPanel() {
+      document.getElementById('admin-panel-modal').classList.remove('hidden');
+      renderAdminCMS();
+    }
+
+    function closeAdminPanel() {
+      document.getElementById('admin-panel-modal').classList.add('hidden');
+      const t = adminToken;
+      adminToken = '';
+      sessionStorage.removeItem(TOKEN_KEY);
+      if (API_URL && t) {
+        fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                         body: JSON.stringify({ action: 'logout', token: t }) }).catch(() => {});
+      }
+      loadDatabase();
+    }
+
+    function _switchAdminTabUI(tabName) {
+      const tabs = ['overview', 'news', 'forms', 'services', 'personnel', 'categories', 'inbox'];
+      tabs.forEach(t => {
+        document.getElementById(`cms-tab-${t}`)?.classList.add('hidden');
+        document.getElementById(`tab-btn-${t}`)?.classList.remove('bg-gold-500', 'text-navy-950', 'font-bold');
+        document.getElementById(`tab-btn-${t}`)?.classList.add('hover:bg-navy-700', 'text-slate-300');
+      });
+
+      document.getElementById(`cms-tab-${tabName}`)?.classList.remove('hidden');
+      const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+      activeBtn?.classList.add('bg-gold-500', 'text-navy-950', 'font-bold');
+      activeBtn?.classList.remove('hover:bg-navy-700', 'text-slate-300');
+    }
+
+    function renderAdminCMS() {
+      // Overview stats
+      document.getElementById('cms-stat-staff').innerText = db.personnel.length;
+      document.getElementById('cms-stat-news').innerText = db.news.length;
+      document.getElementById('cms-stat-forms').innerText = db.forms.length;
+      const unreadCount = db.inbox.filter(m => !m.read).length;
+      document.getElementById('cms-stat-inbox').innerText = unreadCount;
+      
+      const badge = document.getElementById('cms-unread-badge');
+      if (unreadCount > 0) {
+        badge.innerText = unreadCount;
+        badge.classList.remove('hidden');
+      } else {
+        badge.classList.add('hidden');
+      }
+
+      // Render News Table
+      document.getElementById('cms-news-list').innerHTML = db.news.map(n => `
+        <tr>
+          <td class="px-4 py-3 text-xs">${esc(n.date)}</td>
+          <td class="px-4 py-3 font-semibold text-navy-800">${esc(n.title)}</td>
+          <td class="px-4 py-3 text-xs"><span class="px-2 py-0.5 rounded bg-slate-100">${esc(n.category)}</span></td>
+          <td class="px-4 py-3 text-xs">${n.externalUrl ? `<a href="${esc(n.externalUrl)}" target="_blank" class="text-blue-600 underline">ลิงก์แนบ</a>` : '-'}</td>
+          <td class="px-4 py-3 text-right space-x-2">
+            <button onclick="editNews('${esc(n.id)}')" class="text-amber-600 hover:text-amber-800"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button onclick="deleteNews('${esc(n.id)}')" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        </tr>
+      `).join('');
+
+      // Render Forms Table
+      document.getElementById('cms-forms-list').innerHTML = db.forms.map(f => `
+        <tr>
+          <td class="px-4 py-3 font-semibold text-navy-800">${esc(f.title)}</td>
+          <td class="px-4 py-3 text-xs">${esc(f.category)}</td>
+          <td class="px-4 py-3 text-xs">${esc(f.fileType)} (${f.fileSize || '-'})</td>
+          <td class="px-4 py-3 text-xs"><a href="${esc(f.downloadUrl)}" target="_blank" class="text-blue-600 underline">ดาวน์โหลด</a></td>
+          <td class="px-4 py-3 text-right space-x-2">
+            <button onclick="editFormItem('${esc(f.id)}')" class="text-amber-600 hover:text-amber-800"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button onclick="deleteFormItem('${esc(f.id)}')" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        </tr>
+      `).join('');
+
+      // Render Services Table
+      document.getElementById('cms-services-list').innerHTML = db.services.map(s => `
+        <tr>
+          <td class="px-4 py-3 font-semibold text-navy-800"><i class="${esc(s.icon)} mr-2"></i>${esc(s.title)}</td>
+          <td class="px-4 py-3 text-xs">${esc(s.category)}</td>
+          <td class="px-4 py-3 text-xs"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">${esc(s.status)}</span></td>
+          <td class="px-4 py-3 text-right space-x-2">
+            <button onclick="openServiceModal('${esc(s.id)}')" class="text-amber-600 hover:text-amber-800"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button onclick="deleteService('${esc(s.id)}')" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        </tr>
+      `).join('');
+
+      // Render Personnel Table
+      document.getElementById('cms-personnel-list').innerHTML = db.personnel.map(p => `
+        <tr>
+          <td class="px-4 py-3 font-mono text-xs font-bold text-navy-800">${esc(p.posId)}</td>
+          <td class="px-4 py-3 font-semibold text-navy-800">${esc(p.name)}</td>
+          <td class="px-4 py-3 text-xs">${esc(p.position)} (${esc(p.rank)})</td>
+          <td class="px-4 py-3 text-xs">${esc(p.subjectGroup)}</td>
+          <td class="px-4 py-3 text-xs"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">${esc(p.paStatus)}</span></td>
+          <td class="px-4 py-3 text-right space-x-2">
+            <button onclick="editPersonnel('${esc(p.id)}')" class="text-amber-600 hover:text-amber-800"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button onclick="deletePersonnel('${esc(p.id)}')" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        </tr>
+      `).join('');
+
+      // Render Categories
+      document.getElementById('cms-subject-cat-list').innerHTML = db.subjectGroups.map((sg, idx) => `
+        <div class="flex justify-between items-center p-2 bg-slate-50 rounded-lg text-sm border border-slate-200">
+          <span>${sg}</span>
+          <button onclick="deleteSubjectCategory(${idx})" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      `).join('');
+
+      document.getElementById('cms-admin-div-list').innerHTML = db.adminDivisions.map((ad, idx) => `
+        <div class="flex justify-between items-center p-2 bg-slate-50 rounded-lg text-sm border border-slate-200">
+          <span>${ad}</span>
+          <button onclick="deleteAdminDivCategory(${idx})" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      `).join('');
+
+      // Render Inbox
+      document.getElementById('cms-inbox-list').innerHTML = db.inbox.length === 0 ? '<div class="text-slate-400 text-sm">ไม่มีข้อความใหม่</div>' : db.inbox.map(m => `
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative ${!m.read ? 'border-l-4 border-l-gold-500' : ''}">
+          <div class="flex justify-between items-start mb-2">
+            <div>
+              <h4 class="font-bold text-navy-800 font-prompt">${esc(m.subject)}</h4>
+              <p class="text-xs text-slate-500">จาก: <span class="font-medium text-slate-700">${esc(m.name)}</span> (${esc(m.role)}) | ${esc(m.date)}</p>
+            </div>
+            <button onclick="deleteInboxMessage('${esc(m.id)}')" class="text-rose-600 hover:text-rose-800 text-xs"><i class="fa-solid fa-trash"></i> ลบ</button>
+          </div>
+          <p class="text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-100 mt-2">${esc(m.message)}</p>
+        </div>
+      `).join('');
+    }
+
+    // CMS PERSONNEL CRUD
+    function openPersonnelModal() {
+      document.getElementById('p-id').value = '';
+      document.getElementById('p-pos-id').value = 'WMW-T00' + (db.personnel.length + 1);
+      document.getElementById('p-name').value = '';
+      document.getElementById('p-dob').value = '';
+      document.getElementById('p-position').value = 'ครู';
+      document.getElementById('p-rank').value = 'ชำนาญการ';
+      document.getElementById('p-pa-status').value = 'พร้อมยื่นประเมิน';
+      document.getElementById('p-pa-years').value = 2;
+      document.getElementById('p-target-year').value = '2568';
+      document.getElementById('p-phone').value = '';
+      document.getElementById('p-email').value = '';
+      document.getElementById('p-avatar').value = '';
+
+      populateSelectOptions();
+      document.getElementById('personnel-modal').classList.remove('hidden');
+    }
+
+    function closePersonnelModal() {
+      document.getElementById('personnel-modal').classList.add('hidden');
+    }
+
+    function populateSelectOptions() {
+      document.getElementById('p-subject-group').innerHTML = db.subjectGroups.map(sg => `<option value="${sg}">${sg}</option>`).join('');
+      document.getElementById('p-admin-div').innerHTML = db.adminDivisions.map(ad => `<option value="${ad}">${ad}</option>`).join('');
+    }
+
+    function editPersonnel(id) {
+      const p = db.personnel.find(item => item.id === id);
+      if (!p) return;
+
+      populateSelectOptions();
+      document.getElementById('p-id').value = p.id;
+      document.getElementById('p-pos-id').value = p.posId;
+      document.getElementById('p-name').value = p.name;
+      document.getElementById('p-dob').value = p.dob || '';
+      document.getElementById('p-position').value = p.position;
+      document.getElementById('p-rank').value = p.rank;
+      document.getElementById('p-subject-group').value = p.subjectGroup;
+      document.getElementById('p-admin-div').value = p.adminDiv;
+      document.getElementById('p-pa-status').value = p.paStatus;
+      document.getElementById('p-pa-years').value = p.paYears;
+      document.getElementById('p-target-year').value = p.targetYear;
+      document.getElementById('p-phone').value = p.phone || '';
+      document.getElementById('p-email').value = p.email || '';
+      document.getElementById('p-avatar').value = p.avatar || '';
+
+      document.getElementById('personnel-modal').classList.remove('hidden');
+    }
+
+    async function savePersonnel(e) {
+      e.preventDefault();
+      const item = {
+        id: val('p-id'), posId: val('p-pos-id').trim().toUpperCase(), name: val('p-name'), dob: val('p-dob'),
+        position: val('p-position'), rank: val('p-rank'), subjectGroup: val('p-subject-group'),
+        adminDiv: val('p-admin-div'), paStatus: val('p-pa-status'), paYears: parseInt(val('p-pa-years')) || 0,
+        targetYear: val('p-target-year'), phone: val('p-phone'), email: val('p-email'), avatar: val('p-avatar')
+      };
+      await adminCall('save', { entity: 'personnel', item }, closePersonnelModal);
+    }
+
+    async function deletePersonnel(id) {
+      if (confirm('ยืนยันการลบข้อมูลบุคลากรนี้?')) await adminCall('delete', { entity: 'personnel', id });
+    }
+
+    // CMS NEWS CRUD
+    function openNewsFormModal() {
+      document.getElementById('n-id').value = '';
+      document.getElementById('n-title').value = '';
+      document.getElementById('n-category').value = 'คำสั่ง/ประกาศ';
+      document.getElementById('n-date').value = new Date().toISOString().split('T')[0];
+      document.getElementById('n-excerpt').value = '';
+      document.getElementById('n-content').value = '';
+      document.getElementById('n-external-url').value = '';
+      document.getElementById('news-form-modal').classList.remove('hidden');
+    }
+    function closeNewsFormModal() {
+      document.getElementById('news-form-modal').classList.add('hidden');
+    }
+
+    function editNews(id) {
+      const n = db.news.find(item => item.id === id);
+      if (!n) return;
+      document.getElementById('n-id').value = n.id;
+      document.getElementById('n-title').value = n.title;
+      document.getElementById('n-category').value = n.category;
+      document.getElementById('n-date').value = n.date;
+      document.getElementById('n-excerpt').value = n.excerpt;
+      document.getElementById('n-content').value = n.content;
+      document.getElementById('n-external-url').value = n.externalUrl || '';
+      document.getElementById('news-form-modal').classList.remove('hidden');
+    }
+
+    async function saveNews(e) {
+      e.preventDefault();
+      const item = { id: val('n-id'), title: val('n-title'), category: val('n-category'), date: val('n-date'),
+                     excerpt: val('n-excerpt'), content: val('n-content'), externalUrl: val('n-external-url') };
+      await adminCall('save', { entity: 'news', item }, closeNewsFormModal);
+    }
+
+    async function deleteNews(id) {
+      if (confirm('ยืนยันการลบข่าวสารนี้?')) await adminCall('delete', { entity: 'news', id });
+    }
+
+    // CMS FORMS CRUD
+    function openFormModal() {
+      document.getElementById('f-id').value = '';
+      document.getElementById('f-title').value = '';
+      document.getElementById('f-category').value = 'งานการลา';
+      document.getElementById('f-filetype').value = 'PDF';
+      document.getElementById('f-download-url').value = '';
+      document.getElementById('form-modal').classList.remove('hidden');
+    }
+    function closeFormModal() {
+      document.getElementById('form-modal').classList.add('hidden');
+    }
+
+    function editFormItem(id) {
+      const f = db.forms.find(item => item.id === id);
+      if (!f) return;
+      document.getElementById('f-id').value = f.id;
+      document.getElementById('f-title').value = f.title;
+      document.getElementById('f-category').value = f.category;
+      document.getElementById('f-filetype').value = f.fileType;
+      document.getElementById('f-download-url').value = f.downloadUrl;
+      document.getElementById('form-modal').classList.remove('hidden');
+    }
+
+    async function saveFormItem(e) {
+      e.preventDefault();
+      const item = { id: val('f-id'), title: val('f-title'), category: val('f-category'),
+                     fileType: val('f-filetype'), downloadUrl: val('f-download-url') };
+      await adminCall('save', { entity: 'forms', item }, closeFormModal);
+    }
+
+    async function deleteFormItem(id) {
+      if (confirm('ยืนยันการลบแบบฟอร์มนี้?')) await adminCall('delete', { entity: 'forms', id });
+    }
+
+    // CMS CATEGORIES CRUD
+    async function addSubjectCategory() {
+      const el = document.getElementById('new-subject-cat'), name = el.value.trim();
+      if (name) await adminCall('saveCategory', { type: 'subject', name }, () => { el.value = ''; });
+    }
+    async function deleteSubjectCategory(idx) {
+      if (confirm('ยืนยันการลบหมวดหมู่นี้?')) await adminCall('deleteCategory', { type: 'subject', name: db.subjectGroups[idx] });
+    }
+
+    async function addAdminDivCategory() {
+      const el = document.getElementById('new-admin-div'), name = el.value.trim();
+      if (name) await adminCall('saveCategory', { type: 'division', name }, () => { el.value = ''; });
+    }
+    async function deleteAdminDivCategory(idx) {
+      if (confirm('ยืนยันการลบฝ่ายงานนี้?')) await adminCall('deleteCategory', { type: 'division', name: db.adminDivisions[idx] });
+    }
+
+    async function deleteInboxMessage(id) {
+      if (confirm('ยืนยันการลบข้อความนี้?')) await adminCall('delete', { entity: 'inbox', id });
+    }
+
+    // ===== e-Services: ของเดิมมีปุ่มเพิ่ม/ลบแต่ไม่มีฟังก์ชันรองรับ (กดแล้วเกิด error) =====
+    function openServiceModal(id) {
+      const sv = db.services.find(x => x.id === id) || { id: '', title: '', category: '', description: '', icon: 'fa-solid fa-globe', url: '', status: 'เปิดใช้งาน' };
+      document.getElementById('service-modal')?.remove();
+      const field = (key, label) => `<div><label class="block text-xs font-semibold text-slate-700 mb-1">${label}</label>
+        <input type="text" id="sv-${key}" value="${esc(sv[key])}" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm"></div>`;
+      document.body.insertAdjacentHTML('beforeend', `
+        <div id="service-modal" class="fixed inset-0 z-[60] modal-backdrop flex items-center justify-center p-4">
+          <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <h3 class="text-xl font-bold text-navy-800 font-prompt mb-4">เพิ่ม / แก้ไข บริการ e-Service</h3>
+            <form onsubmit="saveService(event)" class="space-y-3">
+              <input type="hidden" id="sv-id" value="${esc(sv.id)}">
+              ${field('title', 'ชื่อบริการ *')}${field('category', 'หมวดหมู่')}${field('description', 'รายละเอียด')}
+              ${field('icon', 'ไอคอน FontAwesome (เช่น fa-solid fa-award)')}${field('url', 'ลิงก์ (https://...)')}${field('status', 'สถานะ')}
+              <div class="flex justify-end gap-2 pt-2">
+                <button type="button" onclick="closeServiceModal()" class="px-4 py-2 bg-slate-200 text-slate-700 text-sm font-prompt rounded-xl">ยกเลิก</button>
+                <button type="submit" class="px-4 py-2 bg-navy-800 text-white text-sm font-prompt rounded-xl">บันทึก</button>
+              </div>
+            </form>
+          </div>
+        </div>`);
+    }
+    function closeServiceModal() { document.getElementById('service-modal')?.remove(); }
+    async function saveService(e) {
+      e.preventDefault();
+      const item = {};
+      ['id', 'title', 'category', 'description', 'icon', 'url', 'status'].forEach(k => item[k] = val('sv-' + k));
+      await adminCall('save', { entity: 'services', item }, closeServiceModal);
+    }
+    async function deleteService(id) {
+      if (confirm('ยืนยันการลบบริการนี้?')) await adminCall('delete', { entity: 'services', id });
+    }
+
+    // เปิดแท็บกล่องข้อความ = ถือว่าอ่านแล้ว (ของเดิมตัวเลขแจ้งเตือนไม่เคยหาย)
+    function switchAdminTab(tabName) {
+      _switchAdminTabUI(tabName);
+      if (tabName === 'inbox' && db.inbox.some(m => !m.read)) {
+        api('markInboxRead').then(() => { db.inbox.forEach(m => m.read = true); renderAdminCMS(); })
+                            .catch(err => console.warn(err.message));
+      }
+    }
+  </script>
+</body>
+</html>
